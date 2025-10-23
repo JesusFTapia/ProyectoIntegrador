@@ -1,0 +1,60 @@
+.menu-item {
+    -fx-background-color :  #9C7277;
+    -fx-background-radius : 0em;
+    -fx-text-fill: white;
+}
+.menu-item-active {
+    -fx-background-color :  #E3CCCE;
+    -fx-background-radius : 0em;
+    -fx-text-fill: white;
+}
+
+.menu-item:hover {
+    -fx-background-color : #D69AA1;
+    -fx-border-color : #CDD1D6;
+    -fx-border-width: 0px 0px 0px 5px;
+}
+.menu-item:disabled {
+    -fx-background-color: #E3CCCE;
+
+    -fx-text-fill: white;
+
+    -fx-opacity: 1.0;
+}
+
+.menu-item:pressed {
+    -fx-background-color : #E3CCCE;
+}
+
+
+.menu-item .image-view {
+    /* Si quieres que el icono se vea más grande o tenga algún efecto visual, hazlo aquí. */
+}
+
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size : 20;
+    -fx-background-color : #7156DD;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-cell {
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgb(127, 172, 243);
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white;
+}

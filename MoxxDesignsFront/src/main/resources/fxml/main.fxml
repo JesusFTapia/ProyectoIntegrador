@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.mainController">
+    <left>
+        <VBox prefHeight="498.0" prefWidth="173.0" style="-fx-background-color: #9C7277;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="trabajosButton" onAction="#handleTrabajosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Trabajos" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewTrabajos" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                </graphic>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="citasButton" onAction="#handleCitasButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Citas" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewCitas" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                </graphic>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="consultarButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Consultar" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewConsultar" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                </graphic>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+    <top>
+
+        <HBox alignment="CENTER_RIGHT" prefWidth="200.0" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="150" fitWidth="985.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/moxxDesignsLogo.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox fx:id="centerVBox" prefHeight="325.0" prefWidth="682.0" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>

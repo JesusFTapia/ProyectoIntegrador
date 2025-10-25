@@ -6,9 +6,16 @@ import com.mycompany.moxxdesignsdbconnection.repository.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.util.List;
 
 public class crearTrabajoController {
@@ -75,9 +82,40 @@ public class crearTrabajoController {
     }
 
     private void configurarBusquedaEnComboBox() {
+
+        clienteComboBox.setConverter(new StringConverter<Client>() {
+            @Override
+            public String toString(Client cliente) {
+                if (cliente == null) {
+                    return "";
+                }
+                return cliente.getName() + " - " + cliente.getPhoneNumber();
+            }
+
+            @Override
+            public Client fromString(String string) {
+                if (string == null || string.isEmpty()) {
+                    return null;
+                }
+                for (Client cliente : todosLosClientes) {
+                    String clienteString = cliente.getName() + " - " + cliente.getPhoneNumber();
+                    if (clienteString.equals(string)) {
+                        return cliente;
+                    }
+                }
+                return null;
+            }
+        });
+
         TextField editor = clienteComboBox.getEditor();
 
         editor.textProperty().addListener((observable, oldValue, newValue) -> {
+            final Client selected = clienteComboBox.getSelectionModel().getSelectedItem();
+
+            if (selected != null && newValue.equals(clienteComboBox.getConverter().toString(selected))) {
+                return;
+            }
+
             if (!clienteComboBox.isShowing() && newValue != null && !newValue.isEmpty()) {
                 clienteComboBox.show();
             }
@@ -101,19 +139,12 @@ public class crearTrabajoController {
             }
         });
 
-        clienteComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                editor.setText(newVal.getName() + " - " + newVal.getPhoneNumber());
-            }
-        });
-
         editor.setOnMouseClicked(event -> {
             if (!clienteComboBox.isShowing()) {
                 clienteComboBox.show();
             }
         });
     }
-
     @FXML
     private void guardarTrabajo() {
         Client clienteSeleccionado = clienteComboBox.getValue();
@@ -149,5 +180,26 @@ public class crearTrabajoController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void abrirRegistroCliente() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registrarCliente.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Registrar Nuevo Cliente");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.showAndWait();
+
+            cargarClientes();
+
+        } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo abrir el formulario de registro: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

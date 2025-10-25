@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.registrarClienteController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="15" style="-fx-padding: 30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Registrar Nuevo Cliente" />
+
+            <VBox spacing="5">
+                <Label text="Nombre:" />
+                <TextField fx:id="nombreTextField" prefWidth="400.0" promptText="Ingrese el nombre" />
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Apellido:" />
+                <TextField fx:id="apellidoTextField" prefWidth="400.0" promptText="Ingrese el apellido" />
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Número de Teléfono:" />
+                <TextField fx:id="telefonoTextField" prefWidth="400.0" promptText="Ingrese el teléfono" />
+            </VBox>
+
+            <HBox spacing="10" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                <Button onAction="#guardarCliente" prefWidth="150.0" style="-fx-padding: 10 20; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="Guardar" />
+                <Button onAction="#cancelar" prefWidth="150.0" style="-fx-padding: 10 20;" text="Cancelar" />
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

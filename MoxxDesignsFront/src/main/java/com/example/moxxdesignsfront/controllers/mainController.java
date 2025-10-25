@@ -54,13 +54,24 @@ public class mainController implements Initializable {
     private void setView(String fxmlFileName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent newView = loader.load();
+            Parent newView = loader.load(); // La vista (Parent) se crea aquí.
+
+            // **Paso 1: Obtener el controlador antes de añadir la vista**
+            Object controller = loader.getController();
 
             centerVBox.getChildren().clear();
-
             centerVBox.getChildren().add(newView);
-
             VBox.setVgrow(newView, javafx.scene.layout.Priority.ALWAYS);
+
+            // **Paso 2: Inicialización condicional**
+            // Si la vista que acabamos de cargar es vistaTrabajos...
+            if (controller instanceof com.example.moxxdesignsfront.controllers.vistaTrabajosController) {
+
+                // ... llamamos al método para que cargue su contenido interno
+                ((com.example.moxxdesignsfront.controllers.vistaTrabajosController) controller).cargarVistaPorDefecto();
+
+                // System.out.println("Vista de Trabajos inicializada con contenido por defecto."); // Debug
+            }
 
         } catch (IOException e) {
             System.err.println("Error al cargar la vista: " + fxmlFileName);
@@ -74,7 +85,7 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    protected void handleTrabajosButton() {
+    public void handleTrabajosButton() {
         handleButtonActivation(trabajosButton);
         setView("/fxml/vistaTrabajos.fxml");
     }

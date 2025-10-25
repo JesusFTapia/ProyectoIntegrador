@@ -3,8 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="325.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.vistaTrabajosController">
-   <children>
-      <Label layoutX="111.0" layoutY="177.0" text="Vista Trabajos" />
-   </children>
+<AnchorPane prefHeight="325.0" prefWidth="682.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.moxxdesignsfront.controllers.vistaTrabajosController">
+
+
+    <AnchorPane fx:id="areaDeContenido"
+                style="-fx-border-color: lightgray;"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0" />
 </AnchorPane>

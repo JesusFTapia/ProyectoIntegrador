@@ -5,8 +5,8 @@
 package PruebasCapaDatos;
 
 import com.mycompany.moxxdesignsdbconnection.entitys.Job;
-import repository.JobRepositoryImpl;
-import repository.IJobRepository;
+import com.mycompany.moxxdesignsdbconnection.repository.JobRepositoryImpl;
+import com.mycompany.moxxdesignsdbconnection.repository.IJobRepository;
 
 /**
  *

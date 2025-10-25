@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="325.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.crearTrabajoController">
+
+    <children>
+        <ScrollPane fitToWidth="true" layoutY="-217.0" prefHeight="792.0" prefWidth="682.0" AnchorPane.bottomAnchor="-250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <content>
+                <VBox fx:id="formContainer" alignment="TOP_CENTER" prefHeight="522.0" prefWidth="667.0" spacing="10" style="-fx-padding: 15;">
+
+                    <Label style="-fx-font-size: 16pt;" text="Formulario de Creación de Trabajo" />
+
+                    <Label text="Seleccionar Cliente:" />
+                    <ComboBox fx:id="clienteComboBox" prefWidth="400.0" promptText="Seleccione un cliente..." />
+
+                    <Label text="Título:" />
+                    <TextField prefWidth="400.0" />
+
+                    <Label text="Descripción Larga:" />
+                    <TextArea prefHeight="100.0" prefWidth="400.0" />
+
+                    <Label text="Campo 10:" />
+                    <TextField prefWidth="400.0" />
+
+                    <Button onAction="#guardarTrabajo" style="-fx-padding: 10 20;" text="Guardar Trabajo" />
+
+                </VBox>
+            </content>
+
+        </ScrollPane>
+    </children>
+</AnchorPane>

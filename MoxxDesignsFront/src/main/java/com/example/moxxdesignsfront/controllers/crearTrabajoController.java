@@ -20,8 +20,7 @@ import java.util.List;
 
 public class crearTrabajoController {
 
-    private IClientRepository clientRepository = new ClientRepositoryImpl();
-    private ClientService clientService = new ClientService(clientRepository);
+    private QuotationService quotationService =  new QuotationService();
 
     @FXML
     private ComboBox<Client> clienteComboBox;
@@ -39,7 +38,7 @@ public class crearTrabajoController {
 
     public void cargarClientes() {
         try {
-            List<Client> clientes = clientRepository.findAll();
+            List<Client> clientes = quotationService.getAllClients();
 
             todosLosClientes = FXCollections.observableArrayList(clientes);
 

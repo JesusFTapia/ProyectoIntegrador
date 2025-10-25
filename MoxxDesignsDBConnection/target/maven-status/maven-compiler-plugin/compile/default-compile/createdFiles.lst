@@ -6,6 +6,7 @@ PruebasCapaDatos\PruebaEditarTrabajo.class
 com\mycompany\moxxdesignsdbconnection\repository\IJobRepository.class
 com\mycompany\moxxdesignsdbconnection\repository\JobRepositoryImpl.class
 com\mycompany\moxxdesignsdbconnection\entitys\Appointment.class
+com\mycompany\moxxdesignsdbconnection\services\QuotationService.class
 com\mycompany\moxxdesignsdbconnection\services\MaterialService.class
 com\mycompany\moxxdesignsdbconnection\repository\JobTypeRepositoryImpl.class
 com\mycompany\moxxdesignsdbconnection\services\UserService.class

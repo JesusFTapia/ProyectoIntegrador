@@ -5,6 +5,7 @@
 package com.mycompany.moxxdesignsdbconnection.entitys;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,26 +24,39 @@ public class Material implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
+    @Column(nullable = false)
     private String name;
     
+    @Column(nullable = false)
     private String description;
     
+    @Column(nullable = false)
     private int quantity;
+    
+    @Column(nullable = false)
+    private String unitType;
+    
+    @Column(nullable = false)
+    private float price;
 
     public Material() {
     }
 
-    public Material(String name, String description, int quantity) {
+    public Material(String name, String description, int quantity, String unitType, float price) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
+        this.unitType = unitType;
+        this.price = price;
     }
 
-    public Material(long id, String name, String description, int quantity) {
+    public Material(long id, String name, String description, int quantity, String unitType, float price) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
+        this.unitType = unitType;
+        this.price = price;
     }
 
     public long getId() {
@@ -75,6 +89,27 @@ public class Material implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUnitType() {
+        return unitType;
+    }
+
+    public void setUnitType(String unitType) {
+        this.unitType = unitType;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Material{" + "id=" + id + ", name=" + name + ", description=" + description + ", quantity=" + quantity + ", unitType=" + unitType + ", price=" + price + '}';
     }
     
     

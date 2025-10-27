@@ -64,7 +64,7 @@ public class PruebaAgregarTrabajo {
             //JobType tipoAuto=jobTypeService.registerNewJobType(new JobType("Auto", "Tiene 4 llantas"));
             JobType tipoCartel=jobTypeService.registerNewJobType(new JobType("Cartel", "Es un cartel"));
             //JobType tipoCartel=jobTypeService.registerNewJobType(new JobType("", "Es un cartel"));
-            Material material = materialService.registerNewMaterial(new Material("Madera", "Es madera", 0));
+            Material material = materialService.registerNewMaterial(new Material("Madera", "Es madera", 0,"m",2.3f));
             
             Quotation quotation=new Quotation(25000, new Date(), 250);
             QuotationMaterialDetail quotationMaterialDetail=new QuotationMaterialDetail(quotation,material, 1, 1);
@@ -78,10 +78,10 @@ public class PruebaAgregarTrabajo {
             quotations.add(quotation);
 
 
-            GeneralJob trabajoCartel=(GeneralJob) jobService.registerNewJob(new GeneralJob(new Date(), "activo", "descripcion",quotations, tipoCartel,usuario, cliente));
+            GeneralJob trabajoCartel=(GeneralJob) jobService.registerNewJob(new GeneralJob(new Date(), "activo", "descripcion","file",quotations, tipoCartel,usuario, cliente));
             //GeneralJob trabajoCartel=(GeneralJob) jobService.registerNewJob(new GeneralJob(new Date(), "activo", "descripcion",quotations, tipoCartel,usuario, cliente));
 
-            VehicularJob trabajoCarro=(VehicularJob) jobService.registerNewJob(new VehicularJob("CRV", "Rojo", 2004, new Date(), "Activo", "descripcion",quotations, tipoAuto, usuario, cliente));
+            VehicularJob trabajoCarro=(VehicularJob) jobService.registerNewJob(new VehicularJob("CRV", "Rojo", 2004, new Date(), "Activo", "descripcion","file",quotations, tipoAuto, usuario, cliente));
             //VehicularJob trabajoCarro=(VehicularJob) jobService.registerNewJob(new VehicularJob("CRV", "Rojo", 2004, new Date(), "Activo", "descripcion",quotations, tipoAuto, usuario, cliente));
             
             trabajoCartel.setState("Cancelado");

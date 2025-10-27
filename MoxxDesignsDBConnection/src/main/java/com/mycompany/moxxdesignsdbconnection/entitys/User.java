@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
 /**
@@ -25,10 +26,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
+    @Column(nullable = false)
     private String role;
     
+    @Column(nullable = false)
     private String userName;
     
+    @Column(nullable = false)
     private String password;
     
     @OneToMany(mappedBy="user")

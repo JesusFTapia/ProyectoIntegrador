@@ -7,6 +7,7 @@ package com.mycompany.moxxdesignsdbconnection.entitys;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -20,10 +21,13 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "job_id")
 public class VehicularJob extends Job implements Serializable {
 
+    @Column(nullable = false)
     private String model;
     
+    @Column(nullable = false)
     private String color;
     
+    @Column(nullable = false)
     private int year;
 
     public VehicularJob() {
@@ -35,15 +39,15 @@ public class VehicularJob extends Job implements Serializable {
         this.year = year;
     }
 
-    public VehicularJob(String model, String color, int year, Date deliveryDate, String state, String description, List<Quotation> quotations, JobType jobType, User user, Client client) {
-        super(deliveryDate, state, description, quotations, jobType, user, client);
+    public VehicularJob(String model, String color, int year, Date deliveryDate, String state, String description, String fileDirection, List<Quotation> quotations, JobType jobType, User user, Client client) {
+        super(deliveryDate, state, description, fileDirection, quotations, jobType, user, client);
         this.model = model;
         this.color = color;
         this.year = year;
     }
     
-    public VehicularJob(String model, String color, int year, long id, Date deliveryDate, String state, String description, List<Quotation> quotations, JobType jobType, User user, Client client) {
-        super(id, deliveryDate, state, description, quotations, jobType, user, client);
+    public VehicularJob(String model, String color, int year, long id, Date deliveryDate, String state, String description, String fileDirection, List<Quotation> quotations, JobType jobType, User user, Client client) {
+        super(id, deliveryDate, state, description, fileDirection, quotations, jobType, user, client);
         this.model = model;
         this.color = color;
         this.year = year;

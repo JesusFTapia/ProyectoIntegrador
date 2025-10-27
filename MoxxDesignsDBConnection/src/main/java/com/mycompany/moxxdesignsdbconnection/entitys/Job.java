@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,11 +33,17 @@ public abstract class Job implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
+    @Column(nullable = false)
     private Date deliveryDate;
     
+    @Column(nullable = false)
     private String state;
     
+    @Column(nullable = false)
     private String description;
+    
+    @Column
+    private String fileDirection;
     
     @OneToMany(mappedBy="job",cascade = CascadeType.ALL)
     List<Quotation> quotations;
@@ -56,21 +63,23 @@ public abstract class Job implements Serializable {
     public Job() {
     }
 
-    public Job(Date deliveryDate, String state, String description,List<Quotation> quotations, JobType jobType, User user, Client client) {
+    public Job(Date deliveryDate, String state, String description, String fileDirection,List<Quotation> quotations, JobType jobType, User user, Client client) {
         this.deliveryDate = deliveryDate;
         this.state = state;
         this.description = description;
+        this.fileDirection = fileDirection;
         this.quotations = quotations;
         this.jobType = jobType;
         this.user = user;
         this.client = client;
     }
 
-    public Job(long id, Date deliveryDate, String state, String description, List<Quotation> quotations, JobType jobType, User user, Client client) {
+    public Job(long id, Date deliveryDate, String state, String description, String fileDirection, List<Quotation> quotations, JobType jobType, User user, Client client) {
         this.id = id;
         this.deliveryDate = deliveryDate;
         this.state = state;
         this.description = description;
+        this.fileDirection = fileDirection;
         this.quotations = quotations;
         this.jobType = jobType;
         this.user = user;
@@ -108,7 +117,14 @@ public abstract class Job implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public String getFileDirection() {
+        return fileDirection;
+    }
 
+    public void setFileDirection(String fileDirection) {
+        this.fileDirection = fileDirection;
+    }
     public List<Quotation> getQuotations() {
         return quotations;
     }
@@ -143,8 +159,12 @@ public abstract class Job implements Serializable {
 
     @Override
     public String toString() {
-        return "Job{" + "id=" + id + ", deliveryDate=" + deliveryDate + ", state=" + state + ", description=" + description + ", quotations=" + quotations + ", jobType=" + jobType + ", user=" + user + ", client=" + client + '}';
+        return "Job{" + "id=" + id + ", deliveryDate=" + deliveryDate + ", state=" + state + ", description=" + description + ", fileDirection=" + fileDirection + ", quotations=" + quotations + ", jobType=" + jobType + ", user=" + user + ", client=" + client + '}';
     }
+
+    
+
+    
 
     
     

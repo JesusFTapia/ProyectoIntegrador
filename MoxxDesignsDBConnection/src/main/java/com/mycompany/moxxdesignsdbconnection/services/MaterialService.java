@@ -44,7 +44,8 @@ public class MaterialService {
     private boolean invalidMaterial(Material material) {
         // Validación de name y quantity (asumo quantity debe ser >= 0)
         if (material.getName() == null || material.getName().trim().isEmpty() ||
-            material.getQuantity() < 0) {
+            material.getQuantity() < 0 || material.getUnitType().trim().isEmpty() ||
+            material.getPrice() < 0) {
             return true;
         } else {
             return false;

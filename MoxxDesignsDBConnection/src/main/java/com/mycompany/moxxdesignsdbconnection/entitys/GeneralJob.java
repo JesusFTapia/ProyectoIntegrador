@@ -26,8 +26,8 @@ public class GeneralJob extends Job implements Serializable {
     public GeneralJob() {
     }
 
-    public GeneralJob(Date deliveryDate, String state, String description, List<Quotation> quotations, JobType jobType, User user, Client client) {
-        super(deliveryDate, state, description, quotations, jobType, user, client);
+    public GeneralJob(Date deliveryDate, String state, String description, String fileDirection, List<Quotation> quotations, JobType jobType, User user, Client client) {
+        super(deliveryDate, state, description, fileDirection, quotations, jobType, user, client);
     }
     
 }

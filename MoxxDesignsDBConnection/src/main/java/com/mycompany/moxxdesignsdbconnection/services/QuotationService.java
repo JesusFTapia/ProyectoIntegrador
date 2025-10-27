@@ -13,9 +13,12 @@ import com.mycompany.moxxdesignsdbconnection.repository.JobRepositoryImpl;
 import com.mycompany.moxxdesignsdbconnection.repository.JobTypeRepositoryImpl;
 import com.mycompany.moxxdesignsdbconnection.repository.MaterialRepositoryImpl;
 import com.mycompany.moxxdesignsdbconnection.entitys.Client;
+import com.mycompany.moxxdesignsdbconnection.entitys.User;
 import com.mycompany.moxxdesignsdbconnection.entitys.Material;
 import com.mycompany.moxxdesignsdbconnection.entitys.Job;
 import com.mycompany.moxxdesignsdbconnection.entitys.JobType;
+import com.mycompany.moxxdesignsdbconnection.repository.IUserRepository;
+import com.mycompany.moxxdesignsdbconnection.repository.UserRepositoryImpl;
 import java.util.List;
 
 /**
@@ -39,6 +42,24 @@ public class QuotationService {
         materialService = new MaterialService(materialRepository);
     }
     
+    public User getUser1(){
+        try{
+            IUserRepository userRepository=new UserRepositoryImpl();
+            UserService userService=new UserService(userRepository);
+            return userService.getAllUsers().get(0);
+        }catch(Exception e){
+            System.out.println("Error en el usuario");
+        }
+        return null;
+    }
+    
+    public Job registerNewJob(Job job) throws Exception{
+        try{
+            return jobService.registerNewJob(job);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
     public Client registerNewClient(Client client) throws Exception{
         try{
             return clientService.registerNewClient(client);

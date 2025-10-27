@@ -6,6 +6,7 @@ package com.mycompany.moxxdesignsdbconnection.entitys;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,12 +25,16 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false)
     private Date appointmentDate;
     
+    @Column(nullable = false)
     private String name;
     
+    @Column(nullable = false)
     private String notes;
     
+    @Column(nullable = false)
     private String hora;
     
     @ManyToOne

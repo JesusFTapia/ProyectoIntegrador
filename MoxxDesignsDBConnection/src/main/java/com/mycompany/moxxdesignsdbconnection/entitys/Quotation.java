@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +30,13 @@ public class Quotation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
+    @Column(nullable = false)
     private float total;
     
+    @Column(nullable = false)
     private Date emisionDate;
     
+    @Column(nullable = false)
     private float laborCost;
     
     @ManyToOne
@@ -105,6 +109,11 @@ public class Quotation implements Serializable {
 
     public void setQuotationMaterialDetails(List<QuotationMaterialDetail> quotationMaterialDetails) {
         this.quotationMaterialDetails = quotationMaterialDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "Quotation{" + "id=" + id + ", total=" + total + ", emisionDate=" + emisionDate + ", laborCost=" + laborCost + ", job=" + job + ", quotationMaterialDetails=" + quotationMaterialDetails + '}';
     }
 
     

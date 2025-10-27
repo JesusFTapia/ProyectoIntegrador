@@ -3,36 +3,116 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="325.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.crearTrabajoController">
+<AnchorPane prefHeight="600.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.crearTrabajoController">
 
     <children>
-        <ScrollPane fitToWidth="true" layoutY="-217.0" prefHeight="792.0" prefWidth="682.0" AnchorPane.bottomAnchor="-250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="682.0"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
 
             <content>
-                <VBox fx:id="formContainer" alignment="TOP_CENTER" prefHeight="522.0" prefWidth="667.0" spacing="10" style="-fx-padding: 15;">
+                <VBox fx:id="formContainer" alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
 
-                    <Label style="-fx-font-size: 16pt;" text="Formulario de Creación de Trabajo" />
+                    <Label style="-fx-font-size: 16pt; -fx-font-weight: bold;" text="Formulario de Creación de Trabajo" />
 
-                    <Label text="Seleccionar Cliente:" />
-                    <HBox spacing="10" alignment="CENTER_LEFT">
+                    <!-- CLIENTE -->
+                    <Label text="Seleccionar Cliente:" style="-fx-font-weight: bold;" />
+                    <HBox spacing="10" alignment="CENTER">
                         <ComboBox fx:id="clienteComboBox" prefWidth="400.0" promptText="Seleccione un cliente..." />
                         <Button text="Registrar Cliente" onAction="#abrirRegistroCliente" style="-fx-padding: 10 20;" />
                     </HBox>
 
-                    <Label text="Título:" />
-                    <TextField prefWidth="400.0" />
+                    <!-- TIPO DE TRABAJO -->
+                    <Label text="Seleccionar tipo de trabajo:" style="-fx-font-weight: bold;" />
+                    <ComboBox fx:id="tipoTrabajoComboBox" prefWidth="400.0" promptText="Seleccione tipo de trabajo..." />
 
-                    <Label text="Descripción Larga:" />
-                    <TextArea prefHeight="100.0" prefWidth="400.0" />
+                    <!-- DATOS DEL VEHÍCULO (dinámico) -->
+                    <VBox fx:id="vehiculoContainer" spacing="10" visible="false" managed="false"
+                          style="-fx-padding: 15; -fx-border-color: #4a90e2; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-color: #e8f4f8; -fx-background-radius: 5;">
+                        <Label text="Datos del Vehículo:" style="-fx-font-weight: bold; -fx-font-size: 12pt;" />
 
-                    <Label text="Campo 10:" />
-                    <TextField prefWidth="400.0" />
+                        <Label text="Modelo:" />
+                        <TextField fx:id="modeloTextField" prefWidth="400.0" promptText="Ej: Civic, Corolla..." />
 
-                    <Button onAction="#guardarTrabajo" style="-fx-padding: 10 20;" text="Guardar Trabajo" />
+                        <Label text="Color:" />
+                        <TextField fx:id="colorTextField" prefWidth="400.0" promptText="Ej: Rojo, Azul..." />
+
+                        <Label text="Año:" />
+                        <TextField fx:id="anioTextField" prefWidth="400.0" promptText="Ej: 2020" />
+                    </VBox>
+
+                    <!-- DESCRIPCIÓN -->
+                    <Label text="Descripción del trabajo:" style="-fx-font-weight: bold;" />
+                    <TextArea fx:id="descripcionTextArea" prefHeight="100.0" prefWidth="400.0" wrapText="true"
+                              promptText="Describe el trabajo a realizar..." />
+
+                    <!-- FECHA DE ENTREGA -->
+                    <Label text="Fecha de Entrega:" style="-fx-font-weight: bold;" />
+                    <DatePicker fx:id="fechaEntregaDatePicker" prefWidth="400.0" promptText="Seleccione fecha de entrega" />
+
+                    <!-- SECCIÓN DE MATERIALES -->
+                    <VBox spacing="10" style="-fx-padding: 15; -fx-border-color: #2ecc71; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-color: #e8f8f5; -fx-background-radius: 5;">
+                        <Label text="Materiales:" style="-fx-font-weight: bold; -fx-font-size: 14pt;" />
+
+                        <Label text="Seleccionar Material:" />
+                        <ComboBox fx:id="materialComboBox" prefWidth="400.0" promptText="Seleccione un material..." />
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Cantidad:" />
+                                <TextField fx:id="cantidadTextField" prefWidth="150.0" promptText="Ej: 10" />
+                            </VBox>
+
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Precio Unitario:" />
+                                <TextField fx:id="precioUnitarioTextField" prefWidth="150.0" promptText="Ej: 50.00" />
+                            </VBox>
+                        </HBox>
+
+                        <Button text="Agregar Material" onAction="#agregarMaterial"
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;" />
+
+                        <!-- TABLA DE MATERIALES AGREGADOS -->
+                        <Label text="Materiales Agregados:" style="-fx-font-weight: bold; -fx-margin-top: 10;" />
+                        <TableView fx:id="tablaMateriales" prefHeight="200.0">
+                            <columns>
+                                <TableColumn fx:id="columnaMaterial" text="Material" prefWidth="200.0" />
+                                <TableColumn fx:id="columnaCantidad" text="Cantidad" prefWidth="100.0" />
+                                <TableColumn fx:id="columnaPrecioUnitario" text="Precio Unit." prefWidth="100.0" />
+                                <TableColumn fx:id="columnaSubtotal" text="Subtotal" prefWidth="100.0" />
+                                <TableColumn fx:id="columnaAcciones" text="Acciones" prefWidth="100.0" />
+                            </columns>
+                        </TableView>
+
+                        <Label fx:id="totalMaterialesLabel" text="Total: $0.00"
+                               style="-fx-font-weight: bold; -fx-font-size: 14pt; -fx-text-fill: #2c3e50;" />
+                    </VBox>
+                    <!-- MANO DE OBRA -->
+                    <VBox spacing="10" style="-fx-padding: 15; -fx-border-color: #f39c12; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-color: #fef5e7; -fx-background-radius: 5;">
+                        <Label text="Mano de Obra:" style="-fx-font-weight: bold; -fx-font-size: 14pt;" />
+
+                        <Label text="Costo de Mano de Obra:" />
+                        <TextField fx:id="manoDeObraTextField" prefWidth="400.0" promptText="Ej: 500.00" />
+                    </VBox>
+
+                    <!-- TOTAL GENERAL -->
+                    <Label fx:id="totalGeneralLabel" text="TOTAL GENERAL: $0.00"
+                           style="-fx-font-weight: bold; -fx-font-size: 16pt; -fx-text-fill: #c0392b; -fx-background-color: #ecf0f1; -fx-padding: 10; -fx-border-color: #95a5a6; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5;" />
+
+                    <!-- BOTÓN GUARDAR -->
+                    <Button onAction="#guardarTrabajo"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 15 30; -fx-font-size: 14pt; -fx-font-weight: bold;"
+                            text="Guardar Trabajo" />
+
+                    <Label text=" " prefHeight="20.0" />
 
                 </VBox>
             </content>
 
         </ScrollPane>
     </children>
+
 </AnchorPane>

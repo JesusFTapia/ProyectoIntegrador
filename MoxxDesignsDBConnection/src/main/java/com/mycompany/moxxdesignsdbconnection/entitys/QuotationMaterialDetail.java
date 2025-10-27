@@ -37,7 +37,7 @@ public class QuotationMaterialDetail implements Serializable {
     @Column(nullable = false)
     private int quantity;
     
-    @Column(name = "unitPrice", nullable = false)
+    @Column(nullable = false)
     private double unitPrice;
 
     public QuotationMaterialDetail() {
@@ -106,6 +106,15 @@ public class QuotationMaterialDetail implements Serializable {
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
+
+    @Override
+    public String toString() {
+        return "QuotationMaterialDetail{" + "id=" + id + ", material=" + material + ", quantity=" + quantity + ", unitPrice=" + unitPrice + '}';
+    }
+
+    
+    
+    
 
    
     

@@ -1,8 +1,11 @@
 package com.example.moxxdesignsfront.controllers;
 
-import com.mycompany.moxxdesignsdbconnection.entitys.Client;
+import com.mycompany.moxxdesignsdbconnection.entitys.*;
 import com.mycompany.moxxdesignsdbconnection.services.*;
 import com.mycompany.moxxdesignsdbconnection.repository.*;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,25 +19,321 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class crearTrabajoController {
 
-    private QuotationService quotationService =  new QuotationService();
+    private QuotationService quotationService = new QuotationService();
 
     @FXML
     private ComboBox<Client> clienteComboBox;
 
     @FXML
-    private TextField tituloTextField;
+    private ComboBox<JobType> tipoTrabajoComboBox;
+
+    @FXML
+    private ComboBox<Material> materialComboBox;
 
     @FXML
     private TextArea descripcionTextArea;
 
     @FXML
-    private TextField campo10TextField;
+    private DatePicker fechaEntregaDatePicker;
+
+    @FXML
+    private TextField cantidadTextField;
+
+    @FXML
+    private TextField precioUnitarioTextField;
+
+    @FXML
+    private TextField manoDeObraTextField;
+
+    // Campos de vehículo
+    @FXML
+    private VBox vehiculoContainer;
+
+    @FXML
+    private TextField modeloTextField;
+
+    @FXML
+    private TextField colorTextField;
+
+    @FXML
+    private TextField anioTextField;
+
+    // Tabla de materiales
+    @FXML
+    private TableView<QuotationMaterialDetail> tablaMateriales;
+
+    @FXML
+    private TableColumn<QuotationMaterialDetail, String> columnaMaterial;
+
+    @FXML
+    private TableColumn<QuotationMaterialDetail, Integer> columnaCantidad;
+
+    @FXML
+    private TableColumn<QuotationMaterialDetail, Double> columnaPrecioUnitario;
+
+    @FXML
+    private TableColumn<QuotationMaterialDetail, Double> columnaSubtotal;
+
+    @FXML
+    private TableColumn<QuotationMaterialDetail, Void> columnaAcciones;
+
+    @FXML
+    private Label totalMaterialesLabel;
+
+    @FXML
+    private Label totalGeneralLabel;
 
     private ObservableList<Client> todosLosClientes;
+    private ObservableList<QuotationMaterialDetail> materialesAgregados = FXCollections.observableArrayList();
+
+    @FXML
+    public void initialize() {
+        cargarClientes();
+        cargarTiposTrabajo();
+        cargarMateriales();
+        configurarTipoTrabajoListener();
+        configurarTablaMateriales();
+        configurarListenerManoDeObra();
+    }
+
+    private void configurarListenerManoDeObra() {
+        manoDeObraTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            actualizarTotales();
+        });
+    }
+
+    private void cargarTiposTrabajo() {
+        try {
+            List<JobType> tiposTrabajo = quotationService.getAllJobTypes();
+            tipoTrabajoComboBox.setItems(FXCollections.observableArrayList(tiposTrabajo));
+
+            tipoTrabajoComboBox.setCellFactory(param -> new ListCell<JobType>() {
+                @Override
+                protected void updateItem(JobType tipo, boolean empty) {
+                    super.updateItem(tipo, empty);
+                    if (empty || tipo == null) {
+                        setText(null);
+                    } else {
+                        setText(tipo.getName());
+                    }
+                }
+            });
+
+            tipoTrabajoComboBox.setButtonCell(new ListCell<JobType>() {
+                @Override
+                protected void updateItem(JobType tipo, boolean empty) {
+                    super.updateItem(tipo, empty);
+                    if (empty || tipo == null) {
+                        setText(null);
+                    } else {
+                        setText(tipo.getName());
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudieron cargar los tipos de trabajo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarMateriales() {
+        try {
+            List<Material> materiales = quotationService.getAllMaterials();
+            materialComboBox.setItems(FXCollections.observableArrayList(materiales));
+
+            materialComboBox.setCellFactory(param -> new ListCell<Material>() {
+                @Override
+                protected void updateItem(Material material, boolean empty) {
+                    super.updateItem(material, empty);
+                    if (empty || material == null) {
+                        setText(null);
+                    } else {
+                        setText(material.getName() + " - " + material.getDescription());
+                    }
+                }
+            });
+
+            materialComboBox.setButtonCell(new ListCell<Material>() {
+                @Override
+                protected void updateItem(Material material, boolean empty) {
+                    super.updateItem(material, empty);
+                    if (empty || material == null) {
+                        setText(null);
+                    } else {
+                        setText(material.getName());
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudieron cargar los materiales: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void configurarTipoTrabajoListener() {
+        tipoTrabajoComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                String nombreTipo = newValue.getName().toLowerCase();
+                boolean esVehiculo = nombreTipo.contains("auto") || nombreTipo.contains("moto");
+                vehiculoContainer.setVisible(esVehiculo);
+                vehiculoContainer.setManaged(esVehiculo);
+
+                if (!esVehiculo) {
+                    modeloTextField.clear();
+                    colorTextField.clear();
+                    anioTextField.clear();
+                }
+            }
+        });
+    }
+
+    private void configurarTablaMateriales() {
+        columnaMaterial.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getMaterial().getName()));
+
+        columnaCantidad.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+
+        columnaPrecioUnitario.setCellValueFactory(cellData ->
+                new SimpleDoubleProperty(cellData.getValue().getUnitPrice()).asObject());
+
+        columnaSubtotal.setCellValueFactory(cellData -> {
+            QuotationMaterialDetail detalle = cellData.getValue();
+            double subtotal = detalle.getQuantity() * detalle.getUnitPrice();
+            return new SimpleDoubleProperty(subtotal).asObject();
+        });
+
+        columnaPrecioUnitario.setCellFactory(col -> new TableCell<QuotationMaterialDetail, Double>() {
+            @Override
+            protected void updateItem(Double precio, boolean empty) {
+                super.updateItem(precio, empty);
+                if (empty || precio == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("$%.2f", precio));
+                }
+            }
+        });
+
+        columnaSubtotal.setCellFactory(col -> new TableCell<QuotationMaterialDetail, Double>() {
+            @Override
+            protected void updateItem(Double subtotal, boolean empty) {
+                super.updateItem(subtotal, empty);
+                if (empty || subtotal == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("$%.2f", subtotal));
+                }
+            }
+        });
+
+        columnaAcciones.setCellFactory(param -> new TableCell<QuotationMaterialDetail, Void>() {
+            private final Button btnEliminar = new Button("Eliminar");
+
+            {
+                btnEliminar.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+                btnEliminar.setOnAction(event -> {
+                    QuotationMaterialDetail detalle = getTableView().getItems().get(getIndex());
+                    eliminarMaterial(detalle);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnEliminar);
+                }
+            }
+        });
+
+        tablaMateriales.setItems(materialesAgregados);
+    }
+
+    @FXML
+    private void agregarMaterial() {
+        Material materialSeleccionado = materialComboBox.getValue();
+        String cantidadStr = cantidadTextField.getText();
+        String precioStr = precioUnitarioTextField.getText();
+
+        if (materialSeleccionado == null) {
+            mostrarAlerta("Error", "Debe seleccionar un material");
+            return;
+        }
+
+        if (cantidadStr.isEmpty() || precioStr.isEmpty()) {
+            mostrarAlerta("Error", "Debe ingresar cantidad y precio unitario");
+            return;
+        }
+
+        try {
+            int cantidad = Integer.parseInt(cantidadStr);
+            double precioUnitario = Double.parseDouble(precioStr);
+
+            if (cantidad <= 0 || precioUnitario <= 0) {
+                mostrarAlerta("Error", "La cantidad y el precio deben ser mayores a cero");
+                return;
+            }
+
+            QuotationMaterialDetail detalle = new QuotationMaterialDetail();
+            detalle.setMaterial(materialSeleccionado);
+            detalle.setQuantity(cantidad);
+            detalle.setUnitPrice(precioUnitario);
+
+            materialesAgregados.add(detalle);
+
+            materialComboBox.setValue(null);
+            cantidadTextField.clear();
+            precioUnitarioTextField.clear();
+
+            actualizarTotales();
+
+            System.out.println("Material agregado: " + materialSeleccionado.getName());
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "Cantidad y precio deben ser valores numéricos válidos");
+        }
+    }
+
+    private void eliminarMaterial(QuotationMaterialDetail detalle) {
+        materialesAgregados.remove(detalle);
+        actualizarTotales();
+        System.out.println("Material eliminado: " + detalle.getMaterial().getName());
+    }
+
+    private void actualizarTotales() {
+        // Calcular total de materiales
+        double totalMateriales = 0.0;
+        for (QuotationMaterialDetail detalle : materialesAgregados) {
+            totalMateriales += detalle.getQuantity() * detalle.getUnitPrice();
+        }
+        totalMaterialesLabel.setText(String.format("Total Materiales: $%.2f", totalMateriales));
+
+        double manoDeObra = 0.0;
+        try {
+            String manoDeObraStr = manoDeObraTextField.getText();
+            if (manoDeObraStr != null && !manoDeObraStr.isEmpty()) {
+                manoDeObra = Double.parseDouble(manoDeObraStr);
+            }
+        } catch (NumberFormatException e) {
+            // Si no es un número válido, se queda en 0
+        }
+
+        double totalGeneral = totalMateriales + manoDeObra;
+        totalGeneralLabel.setText(String.format("TOTAL GENERAL: $%.2f", totalGeneral));
+    }
 
     public void cargarClientes() {
         try {
@@ -144,33 +443,176 @@ public class crearTrabajoController {
             }
         });
     }
+
     @FXML
     private void guardarTrabajo() {
+        // Validaciones básicas
         Client clienteSeleccionado = clienteComboBox.getValue();
-
         if (clienteSeleccionado == null) {
             mostrarAlerta("Error", "Debe seleccionar un cliente de la lista");
             return;
         }
 
-        String titulo = tituloTextField.getText();
+        JobType tipoTrabajo = tipoTrabajoComboBox.getValue();
+        if (tipoTrabajo == null) {
+            mostrarAlerta("Error", "Debe seleccionar un tipo de trabajo");
+            return;
+        }
+
+        LocalDate fechaEntrega = fechaEntregaDatePicker.getValue();
+        if (fechaEntrega == null) {
+            mostrarAlerta("Error", "Debe seleccionar una fecha de entrega");
+            return;
+        }
+
         String descripcion = descripcionTextArea.getText();
-        String campo10 = campo10TextField.getText();
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            mostrarAlerta("Error", "Debe ingresar una descripción del trabajo");
+            return;
+        }
 
-        System.out.println("Cliente: " + clienteSeleccionado.getName());
-        System.out.println("Título: " + titulo);
+        // Validar datos de vehículo si aplica
+        String nombreTipo = tipoTrabajo.getName().toLowerCase();
+        VehicularJob trabajoVehicular = null;
 
-        mostrarAlerta("Éxito", "Trabajo guardado correctamente");
+        if (nombreTipo.contains("auto") || nombreTipo.contains("moto")) {
+            String modelo = modeloTextField.getText();
+            String color = colorTextField.getText();
+            String anio = anioTextField.getText();
 
-        limpiarFormulario();
+            if (modelo.isEmpty() || color.isEmpty() || anio.isEmpty()) {
+                mostrarAlerta("Error", "Debe completar todos los datos del vehículo");
+                return;
+            }
+
+            // Crear trabajo vehicular si es necesario
+            trabajoVehicular = new VehicularJob();
+            trabajoVehicular.setModel(modelo);
+            trabajoVehicular.setColor(color);
+            trabajoVehicular.setYear(Integer.parseInt(anio));
+        }
+
+        // Obtener mano de obra
+        double manoDeObra = 0.0;
+        try {
+            String manoDeObraStr = manoDeObraTextField.getText();
+            if (manoDeObraStr != null && !manoDeObraStr.isEmpty()) {
+                manoDeObra = Double.parseDouble(manoDeObraStr);
+                if (manoDeObra < 0) {
+                    mostrarAlerta("Error", "La mano de obra no puede ser negativa");
+                    return;
+                }
+            }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "La mano de obra debe ser un número válido");
+            return;
+        }
+
+        try {
+            Quotation quotation = new Quotation();
+            quotation.setEmisionDate(new Date());
+            quotation.setTotal((float)calcularTotalGeneral());
+            quotation.setLaborCost((float)manoDeObra);
+
+            List<QuotationMaterialDetail> quotationMaterialDetails = new ArrayList<>();
+
+            for (QuotationMaterialDetail detalle : materialesAgregados) {
+                QuotationMaterialDetail qmd = new QuotationMaterialDetail();
+                qmd.setMaterial(detalle.getMaterial());
+                qmd.setQuantity(detalle.getQuantity());
+                qmd.setUnitPrice(detalle.getUnitPrice());
+                qmd.setQuotation(quotation);
+
+                quotationMaterialDetails.add(qmd);
+            }
+
+            quotation.setQuotationMaterialDetails(quotationMaterialDetails);
+
+            // Crear lista de cotizaciones
+            List<Quotation> quotations = new ArrayList<>();
+            quotations.add(quotation);
+
+            // Convertir LocalDate a Date
+            Date fechaEntregaDate = Date.from(fechaEntrega.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            User usuario = obtenerUsuarioActual();
+
+            Job trabajo;
+
+            if (trabajoVehicular != null) {
+                // Si es trabajo vehicular
+                trabajoVehicular.setDeliveryDate(fechaEntregaDate);
+                trabajoVehicular.setState("PENDIENTE");
+                trabajoVehicular.setDescription(descripcion);
+                trabajoVehicular.setFileDirection(""); // Ajusta según necesites
+                trabajoVehicular.setQuotations(quotations);
+                trabajoVehicular.setUser(usuario);
+                trabajoVehicular.setClient(clienteSeleccionado);
+
+                trabajo = quotationService.registerNewJob(trabajoVehicular);
+            } else {
+                // Si es trabajo genérico
+                GeneralJob trabajoGenerico = new GeneralJob(fechaEntregaDate,
+                        "PENDIENTE",
+                        descripcion,
+                        "file",
+                        quotations,
+                        tipoTrabajo,
+                        usuario,
+                        clienteSeleccionado);
+                System.out.println(usuario);
+                trabajo = quotationService.registerNewJob(trabajoGenerico);
+            }
+
+            mostrarAlerta("Éxito", "Trabajo guardado correctamente con ID: " + trabajo.getId());
+
+            limpiarFormulario();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo guardar el trabajo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private double calcularTotalGeneral() {
+        double totalMateriales = 0.0;
+        for (QuotationMaterialDetail detalle : materialesAgregados) {
+            totalMateriales += detalle.getQuantity() * detalle.getUnitPrice();
+        }
+
+        double manoDeObra = 0.0;
+        try {
+            String manoDeObraStr = manoDeObraTextField.getText();
+            if (manoDeObraStr != null && !manoDeObraStr.isEmpty()) {
+                manoDeObra = Double.parseDouble(manoDeObraStr);
+            }
+        } catch (NumberFormatException e) {
+            // Si no es válido, queda en 0
+        }
+
+        return totalMateriales + manoDeObra;
+    }
+
+    private User obtenerUsuarioActual() {
+        User usuarioPrueba=quotationService.getUser1();
+        return usuarioPrueba;
     }
 
     private void limpiarFormulario() {
         clienteComboBox.setValue(null);
         clienteComboBox.getEditor().clear();
-        tituloTextField.clear();
+        tipoTrabajoComboBox.setValue(null);
         descripcionTextArea.clear();
-        campo10TextField.clear();
+        fechaEntregaDatePicker.setValue(null);
+        modeloTextField.clear();
+        colorTextField.clear();
+        anioTextField.clear();
+        materialComboBox.setValue(null);
+        cantidadTextField.clear();
+        precioUnitarioTextField.clear();
+        manoDeObraTextField.clear();
+        materialesAgregados.clear();
+        actualizarTotales();
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

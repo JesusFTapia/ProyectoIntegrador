@@ -102,6 +102,21 @@ public class crearTrabajoController {
         configurarTipoTrabajoListener();
         configurarTablaMateriales();
         configurarListenerManoDeObra();
+        
+        fechaEntregaDatePicker.setDayCellFactory(datePicker -> new DateCell() {
+        @Override
+        public void updateItem(LocalDate date, boolean empty) {
+            super.updateItem(date, empty);
+            if (date.isBefore(LocalDate.now())) {
+                setDisable(true);
+                setStyle("-fx-background-color: #ccc;"); // gris opcional
+            }
+        }
+    });
+
+    // Opcional: establecer la fecha de hoy como valor inicial
+    fechaEntregaDatePicker.setValue(LocalDate.now());
+        
     }
 
     private void configurarListenerManoDeObra() {
@@ -479,6 +494,7 @@ public class crearTrabajoController {
             String modelo = modeloTextField.getText();
             String color = colorTextField.getText();
             String anio = anioTextField.getText();
+            
 
             if (modelo.isEmpty() || color.isEmpty() || anio.isEmpty()) {
                 mostrarAlerta("Error", "Debe completar todos los datos del vehículo");
@@ -548,9 +564,9 @@ public class crearTrabajoController {
                 trabajoVehicular.setQuotations(quotations);
                 trabajoVehicular.setUser(usuario);
                 trabajoVehicular.setClient(clienteSeleccionado);
-
+                
                 trabajo = quotationService.registerNewJob(trabajoVehicular);
-            } else {
+            } else { 
                 // Si es trabajo genérico
                 GeneralJob trabajoGenerico = new GeneralJob(fechaEntregaDate,
                         "PENDIENTE",

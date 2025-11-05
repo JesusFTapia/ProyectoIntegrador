@@ -14,10 +14,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -52,6 +54,13 @@ public class crearTrabajoController {
 
     @FXML
     private TextField manoDeObraTextField;
+
+    // Campo para la ruta del archivo de imagen
+    @FXML
+    private TextField archivoImagenTextField;
+
+    @FXML
+    private Label nombreArchivoLabel;
 
     // Campos de vehículo
     @FXML
@@ -94,6 +103,9 @@ public class crearTrabajoController {
     private ObservableList<Client> todosLosClientes;
     private ObservableList<QuotationMaterialDetail> materialesAgregados = FXCollections.observableArrayList();
 
+    // Variable para almacenar la ruta del archivo seleccionado
+    private String rutaArchivoImagen = "";
+
     @FXML
     public void initialize() {
         cargarClientes();
@@ -102,21 +114,19 @@ public class crearTrabajoController {
         configurarTipoTrabajoListener();
         configurarTablaMateriales();
         configurarListenerManoDeObra();
-        
-        fechaEntregaDatePicker.setDayCellFactory(datePicker -> new DateCell() {
-        @Override
-        public void updateItem(LocalDate date, boolean empty) {
-            super.updateItem(date, empty);
-            if (date.isBefore(LocalDate.now())) {
-                setDisable(true);
-                setStyle("-fx-background-color: #ccc;"); // gris opcional
-            }
-        }
-    });
 
-    // Opcional: establecer la fecha de hoy como valor inicial
-    fechaEntregaDatePicker.setValue(LocalDate.now());
-        
+        fechaEntregaDatePicker.setDayCellFactory(datePicker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ccc;");
+                }
+            }
+        });
+
+        fechaEntregaDatePicker.setValue(LocalDate.now());
     }
 
     private void configurarListenerManoDeObra() {
@@ -329,7 +339,6 @@ public class crearTrabajoController {
     }
 
     private void actualizarTotales() {
-        // Calcular total de materiales
         double totalMateriales = 0.0;
         for (QuotationMaterialDetail detalle : materialesAgregados) {
             totalMateriales += detalle.getQuantity() * detalle.getUnitPrice();
@@ -347,7 +356,44 @@ public class crearTrabajoController {
         }
 
         double totalGeneral = totalMateriales + manoDeObra;
-        totalGeneralLabel.setText(String.format("TOTAL GENERAL: $%.2f", totalGeneral));
+        totalGeneralLabel.setText(String.format("$%.2f", totalGeneral));
+    }
+
+    // NUEVO: Método para seleccionar archivo de imagen
+    @FXML
+    private void seleccionarArchivo() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar Imagen del Trabajo");
+
+        // Filtros para solo permitir imágenes PNG y JPG
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg")
+        );
+
+        // Obtener el stage actual
+        Stage stage = (Stage) archivoImagenTextField.getScene().getWindow();
+
+        // Abrir el diálogo de selección de archivo
+        File archivoSeleccionado = fileChooser.showOpenDialog(stage);
+
+        if (archivoSeleccionado != null) {
+            rutaArchivoImagen = archivoSeleccionado.getAbsolutePath();
+            archivoImagenTextField.setText(rutaArchivoImagen);
+            nombreArchivoLabel.setText("📁 " + archivoSeleccionado.getName());
+            nombreArchivoLabel.setStyle("-fx-text-fill: #28a745; -fx-font-weight: bold;");
+            System.out.println("Archivo seleccionado: " + rutaArchivoImagen);
+        }
+    }
+
+    // NUEVO: Método para limpiar la selección de archivo
+    @FXML
+    private void limpiarArchivo() {
+        rutaArchivoImagen = "";
+        archivoImagenTextField.clear();
+        nombreArchivoLabel.setText("Ningún archivo seleccionado");
+        nombreArchivoLabel.setStyle("-fx-text-fill: #6c757d; -fx-font-style: italic;");
     }
 
     public void cargarClientes() {
@@ -494,14 +540,12 @@ public class crearTrabajoController {
             String modelo = modeloTextField.getText();
             String color = colorTextField.getText();
             String anio = anioTextField.getText();
-            
 
             if (modelo.isEmpty() || color.isEmpty() || anio.isEmpty()) {
                 mostrarAlerta("Error", "Debe completar todos los datos del vehículo");
                 return;
             }
 
-            // Crear trabajo vehicular si es necesario
             trabajoVehicular = new VehicularJob();
             trabajoVehicular.setModel(modelo);
             trabajoVehicular.setColor(color);
@@ -544,39 +588,38 @@ public class crearTrabajoController {
 
             quotation.setQuotationMaterialDetails(quotationMaterialDetails);
 
-            // Crear lista de cotizaciones
             List<Quotation> quotations = new ArrayList<>();
             quotations.add(quotation);
 
-            // Convertir LocalDate a Date
             Date fechaEntregaDate = Date.from(fechaEntrega.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             User usuario = obtenerUsuarioActual();
 
+            // Usar la ruta del archivo de imagen (o cadena vacía si no se seleccionó)
+            String rutaArchivo = rutaArchivoImagen.isEmpty() ? "" : rutaArchivoImagen;
+
             Job trabajo;
 
             if (trabajoVehicular != null) {
-                // Si es trabajo vehicular
                 trabajoVehicular.setDeliveryDate(fechaEntregaDate);
                 trabajoVehicular.setState("PENDIENTE");
                 trabajoVehicular.setDescription(descripcion);
-                trabajoVehicular.setFileDirection(""); // Ajusta según necesites
+                trabajoVehicular.setFileDirection(rutaArchivo); // USAR LA RUTA DEL ARCHIVO
                 trabajoVehicular.setQuotations(quotations);
                 trabajoVehicular.setUser(usuario);
                 trabajoVehicular.setClient(clienteSeleccionado);
-                
+
                 trabajo = quotationService.registerNewJob(trabajoVehicular);
-            } else { 
-                // Si es trabajo genérico
+            } else {
                 GeneralJob trabajoGenerico = new GeneralJob(fechaEntregaDate,
                         "PENDIENTE",
                         descripcion,
-                        "file",
+                        rutaArchivo, // USAR LA RUTA DEL ARCHIVO
                         quotations,
                         tipoTrabajo,
                         usuario,
                         clienteSeleccionado);
-                System.out.println(usuario);
+
                 trabajo = quotationService.registerNewJob(trabajoGenerico);
             }
 
@@ -610,7 +653,7 @@ public class crearTrabajoController {
     }
 
     private User obtenerUsuarioActual() {
-        User usuarioPrueba=quotationService.getUser1();
+        User usuarioPrueba = quotationService.getUser1();
         return usuarioPrueba;
     }
 
@@ -619,7 +662,7 @@ public class crearTrabajoController {
         clienteComboBox.getEditor().clear();
         tipoTrabajoComboBox.setValue(null);
         descripcionTextArea.clear();
-        fechaEntregaDatePicker.setValue(null);
+        fechaEntregaDatePicker.setValue(LocalDate.now());
         modeloTextField.clear();
         colorTextField.clear();
         anioTextField.clear();
@@ -628,6 +671,7 @@ public class crearTrabajoController {
         precioUnitarioTextField.clear();
         manoDeObraTextField.clear();
         materialesAgregados.clear();
+        limpiarArchivo(); // Limpiar también el archivo
         actualizarTotales();
     }
 

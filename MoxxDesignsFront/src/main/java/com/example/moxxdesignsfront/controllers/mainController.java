@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -26,14 +25,10 @@ public class mainController implements Initializable {
     private VBox centerVBox;
 
     @FXML private Button trabajosButton;
-    @FXML private Button cotizacionButton;
     @FXML private Button citaButton;
     @FXML private Button consultarButton;
     private List<Button> menuButtons;
 
-    @FXML
-    private ImageView ImageViewCotizacion;
-    
     @FXML
     private ImageView ImageViewTrabajo;
 
@@ -45,38 +40,37 @@ public class mainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuButtons = Arrays.asList(cotizacionButton, trabajosButton, citaButton, consultarButton);
-        handleButtonActivation(cotizacionButton);
-        setView("/fxml/vistaCotizacion.fxml");
-        Image svgImage0 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
-        ImageViewCotizacion.setImage(svgImage0);
+        menuButtons = Arrays.asList(trabajosButton, citaButton, consultarButton);
         Image svgImage1 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewTrabajo.setImage(svgImage1);
         Image svgImage2 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewCita.setImage(svgImage2);
         Image svgImage3 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewConsultar.setImage(svgImage3);
+        handleButtonActivation(trabajosButton);
+
+        // Cargar directamente el menú de administrar trabajos
+        setView("/fxml/vistaTrabajos.fxml");
     }
+
     private void setView(String fxmlFileName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent newView = loader.load(); // La vista (Parent) se crea aquí.
+            Parent newView = loader.load();
 
-            // **Paso 1: Obtener el controlador antes de añadir la vista**
             Object controller = loader.getController();
 
             centerVBox.getChildren().clear();
             centerVBox.getChildren().add(newView);
             VBox.setVgrow(newView, javafx.scene.layout.Priority.ALWAYS);
 
-            // **Paso 2: Inicialización condicional**
-            // Si la vista que acabamos de cargar es vistaTrabajos...
-            if (controller instanceof com.example.moxxdesignsfront.controllers.vistaTrabajosController) {
+            // Inyectar referencia al mainController en los controladores que lo necesiten
+            if (controller instanceof vistaTrabajosController) {
+                ((vistaTrabajosController) controller).setMainController(this);
+            }
 
-                // ... llamamos al método para que cargue su contenido interno
-                ((com.example.moxxdesignsfront.controllers.vistaTrabajosController) controller).cargarVistaPorDefecto();
-
-                // System.out.println("Vista de Trabajos inicializada con contenido por defecto."); // Debug
+            if (controller instanceof crearTrabajoController) {
+                ((crearTrabajoController) controller).cargarClientes();
             }
 
         } catch (IOException e) {
@@ -86,20 +80,9 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    public void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-    @FXML
     public void handleTrabajosButton() {
         handleButtonActivation(trabajosButton);
         setView("/fxml/vistaTrabajos.fxml");
-    }
-    
-    @FXML
-    public void handleCotizacionButton() {
-        handleButtonActivation(cotizacionButton);
-        setView("/fxml/vistaCotizacion.fxml");
     }
 
     @FXML
@@ -113,20 +96,17 @@ public class mainController implements Initializable {
         setView("/fxml/consultar_view.fxml");
     }
 
-    private void handleButtonActivation(Button activeButton) {
-        // 1. Recorrer y deshabilitar/habilitar
-        for (Button btn : menuButtons) {
-            // Quitar la clase 'active' de todos (estilo)
-            btn.getStyleClass().remove("menu-item-active");
+    // Método público para que otros controladores puedan cambiar la vista
+    public void cargarVistaEnCenter(String fxmlPath) {
+        setView(fxmlPath);
+    }
 
-            // ¡CLAVE! Habilita todos los botones para que se puedan presionar de nuevo
+    private void handleButtonActivation(Button activeButton) {
+        for (Button btn : menuButtons) {
+            btn.getStyleClass().remove("menu-item-active");
             btn.setDisable(false);
         }
-
-        // 2. Activar el estilo del botón actual
         activeButton.getStyleClass().add("menu-item-active");
-
-        // 3. ¡CLAVE! Deshabilita el botón que ya está activo
         activeButton.setDisable(true);
     }
 }

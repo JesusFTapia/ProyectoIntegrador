@@ -15,7 +15,7 @@
               AnchorPane.topAnchor="0.0">
 
             <!-- Título -->
-            <Label text="Gestión de Cotizaciones" 
+            <Label text="Gestión de Trabajos"
                    style="-fx-font-size: 20pt; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
 
             <!-- Barra de búsqueda y acciones -->

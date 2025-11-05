@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.vistaTrabajosController">
+    <Button text="Crear Trabajo"
+            layoutX="256.0" layoutY="88.0"
+            onAction="#cargarVistaUno"
+            style="-fx-background-color: #9C7277;
+                                           -fx-text-fill: white;
+                                           -fx-background-radius: 8;
+                                           -fx-padding: 12 24;
+                                           -fx-font-weight: bold;
+                                           -fx-cursor: hand;">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+    </Button>
+    <Button text="Ver Trabajo"
+            layoutX="257.0" layoutY="175.0"
+            onAction="#cargarVistaDos"
+            style="-fx-background-color: #9C7277;
+                                           -fx-text-fill: white;
+                                           -fx-background-radius: 8;
+                                           -fx-padding: 12 24;
+                                           -fx-font-weight: bold;
+                                           -fx-cursor: hand;">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+    </Button>
+</AnchorPane>

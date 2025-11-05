@@ -329,7 +329,8 @@ public class vistaCotizacionRead {
         if (resultado.isPresent() && resultado.get() == btnSi) {
             try {
                 // Cambiar el estado a CANCELADO usando el servicio
-                String respuesta = jobService.changeState(job.getId());
+                job.setState("CANCELADO");
+                job= jobService.editJob(job);
                 
                 // Actualizar el estado en el objeto local
                 job.setState("CANCELADO");
@@ -340,7 +341,7 @@ public class vistaCotizacionRead {
                 mostrarAlerta("Éxito", 
                     "El trabajo ha sido cancelado correctamente.", 
                     Alert.AlertType.INFORMATION);
-                System.out.println("Trabajo cancelado: ID " + job.getId() + " - " + respuesta);
+                System.out.println("Trabajo cancelado: ID " + job.getId());
             } catch (Exception e) {
                 mostrarAlerta("Error", 
                     "No se pudo cancelar el trabajo: " + e.getMessage(), 

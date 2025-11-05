@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<AnchorPane prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.moxxdesignsfront.controllers.crearTrabajoController">
+
+    <children>
+        <ScrollPane fitToWidth="true"
+                    prefHeight="600.0"
+                    prefWidth="900.0"
+                    style="-fx-background: transparent; -fx-background-color: transparent;"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+
+            <content>
+                <VBox fx:id="formContainer"
+                      alignment="TOP_CENTER"
+                      spacing="25"
+                      style="-fx-padding: 40;">
+
+                    <!-- ENCABEZADO -->
+                    <VBox alignment="CENTER" spacing="5"
+                          style="-fx-background-color: black;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 30;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 4);">
+                        <Label text="Nuevo Trabajo"
+                               style="-fx-text-fill: white; -fx-font-weight: bold;">
+                            <font>
+                                <Font size="32"/>
+                            </font>
+                        </Label>
+                        <Label text="Complete los datos para generar el trabajo"
+                               style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <!-- CARD: INFORMACIÓN DEL CLIENTE -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="👤 Información del Cliente"
+                               style="-fx-font-weight: bold; -fx-text-fill: #667eea;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Cliente"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <ComboBox fx:id="clienteComboBox"
+                                          maxWidth="Infinity"
+                                          promptText="Seleccione un cliente..."
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+                            </VBox>
+
+                            <Button text="+ Nuevo Cliente"
+                                    onAction="#abrirRegistroCliente"
+                                    style="-fx-background-color: #9C7277;
+                                           -fx-text-fill: white;
+                                           -fx-background-radius: 8;
+                                           -fx-padding: 12 24;
+                                           -fx-font-weight: bold;
+                                           -fx-cursor: hand;">
+                                <VBox.margin>
+                                    <Insets top="20"/>
+                                </VBox.margin>
+                            </Button>
+                        </HBox>
+
+                        <HBox spacing="15">
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Tipo de Trabajo"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <ComboBox fx:id="tipoTrabajoComboBox"
+                                          maxWidth="Infinity"
+                                          promptText="Seleccione tipo de trabajo..."
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- CARD: DATOS DEL VEHÍCULO (CONDICIONAL) -->
+                    <VBox fx:id="vehiculoContainer"
+                          spacing="15"
+                          visible="false"
+                          managed="false"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="🚗 Datos del Vehículo"
+                               style="-fx-font-weight: bold; -fx-text-fill: #28a745;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <HBox spacing="15">
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Modelo"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <TextField fx:id="modeloTextField"
+                                           promptText="Ej: Civic, Corolla..."
+                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                            </VBox>
+
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Color"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <TextField fx:id="colorTextField"
+                                           promptText="Ej: Rojo, Azul..."
+                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                            </VBox>
+
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Año"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <TextField fx:id="anioTextField"
+                                           promptText="Ej: 2020"
+                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- CARD: DESCRIPCIÓN Y FECHA -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="📝 Detalles del Trabajo"
+                               style="-fx-font-weight: bold; -fx-text-fill: #fd7e14;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <VBox spacing="8">
+                            <Label text="Descripción"
+                                   style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                            <TextArea fx:id="descripcionTextArea"
+                                      prefHeight="120.0"
+                                      wrapText="true"
+                                      promptText="Describe detalladamente el trabajo a realizar..."
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #dee2e6;"/>
+                        </VBox>
+
+                        <VBox spacing="8">
+                            <Label text="Fecha de Entrega"
+                                   style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                            <DatePicker fx:id="fechaEntregaDatePicker"
+                                        maxWidth="Infinity"
+                                        promptText="Seleccione fecha de entrega"
+                                        style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- CARD NUEVA: ARCHIVO DE IMAGEN (OPCIONAL) -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="🖼️ Imagen de Referencia (Opcional)"
+                               style="-fx-font-weight: bold; -fx-text-fill: #6f42c1;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <VBox spacing="10">
+                            <Label text="Adjuntar imagen del trabajo"
+                                   style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button text="📂 Seleccionar Archivo"
+                                        onAction="#seleccionarArchivo"
+                                        style="-fx-background-color: #6f42c1;
+                                               -fx-text-fill: white;
+                                               -fx-background-radius: 8;
+                                               -fx-padding: 10 20;
+                                               -fx-font-weight: bold;
+                                               -fx-cursor: hand;"/>
+
+                                <Button text="🗑️ Limpiar"
+                                        onAction="#limpiarArchivo"
+                                        style="-fx-background-color: #dc3545;
+                                               -fx-text-fill: white;
+                                               -fx-background-radius: 8;
+                                               -fx-padding: 10 20;
+                                               -fx-font-weight: bold;
+                                               -fx-cursor: hand;"/>
+                            </HBox>
+
+                            <TextField fx:id="archivoImagenTextField"
+                                       editable="false"
+                                       promptText="Ruta del archivo..."
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10; -fx-background-color: #f8f9fa;"/>
+
+                            <Label fx:id="nombreArchivoLabel"
+                                   text="Ningún archivo seleccionado"
+                                   style="-fx-text-fill: #6c757d; -fx-font-style: italic; -fx-font-size: 12px;"/>
+
+                            <Label text="💡 Formatos aceptados: PNG, JPG, JPEG"
+                                   style="-fx-text-fill: #17a2b8; -fx-font-size: 11px; -fx-font-style: italic;"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="5"
+                          style="-fx-background-color: black;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 30;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 4);">
+                        <Label text="Detalles de la cotización"
+                               style="-fx-text-fill: white; -fx-font-weight: bold;">
+                            <font>
+                                <Font size="20"/>
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <!-- CARD: MATERIALES -->
+                    <VBox spacing="20"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="🧰 Materiales"
+                               style="-fx-font-weight: bold; -fx-text-fill: #17a2b8;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <VBox spacing="8">
+                            <Label text="Seleccionar Material"
+                                   style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                            <ComboBox fx:id="materialComboBox"
+                                      maxWidth="Infinity"
+                                      promptText="Seleccione un material..."
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+                        </VBox>
+
+                        <HBox spacing="15">
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Cantidad"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <TextField fx:id="cantidadTextField"
+                                           promptText="Ej: 10"
+                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                            </VBox>
+
+                            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                                <Label text="Precio Unitario"
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                                <TextField fx:id="precioUnitarioTextField"
+                                           promptText="Ej: 50.00"
+                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                            </VBox>
+                        </HBox>
+
+                        <Button text="+ Agregar Material"
+                                onAction="#agregarMaterial"
+                                maxWidth="Infinity"
+                                style="-fx-background-color: #17a2b8;
+                                       -fx-text-fill: white;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 12;
+                                       -fx-font-weight: bold;
+                                       -fx-font-size: 13px;
+                                       -fx-cursor: hand;"/>
+
+                        <VBox spacing="10">
+                            <Label text="Materiales Agregados"
+                                   style="-fx-font-weight: 600; -fx-text-fill: #495057; -fx-font-size: 14px;"/>
+                            <TableView fx:id="tablaMateriales"
+                                       prefHeight="200.0"
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #dee2e6;">
+                                <columns>
+                                    <TableColumn fx:id="columnaMaterial" text="Material" prefWidth="200.0"/>
+                                    <TableColumn fx:id="columnaCantidad" text="Cantidad" prefWidth="100.0"/>
+                                    <TableColumn fx:id="columnaPrecioUnitario" text="Precio Unit." prefWidth="120.0"/>
+                                    <TableColumn fx:id="columnaSubtotal" text="Subtotal" prefWidth="120.0"/>
+                                    <TableColumn fx:id="columnaAcciones" text="Acciones" prefWidth="100.0"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <HBox alignment="CENTER_RIGHT"
+                              style="-fx-background-color: #f8f9fa;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 15;">
+                            <Label fx:id="totalMaterialesLabel"
+                                   text="Total Materiales: $0.00"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #17a2b8;">
+                                <font>
+                                    <Font size="16"/>
+                                </font>
+                            </Label>
+                        </HBox>
+                    </VBox>
+
+                    <!-- CARD: MANO DE OBRA -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+                        <padding>
+                            <Insets top="10" right="20" bottom="10" left="20"/>
+                        </padding>
+
+                        <Label text="👷 Mano de Obra"
+                               style="-fx-font-weight: bold; -fx-text-fill: #ffc107;">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
+
+                        <Separator/>
+
+                        <VBox spacing="8">
+                            <Label text="Costo de Mano de Obra"
+                                   style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                            <TextField fx:id="manoDeObraTextField"
+                                       promptText="Ej: 500.00"
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- TOTAL GENERAL -->
+                    <VBox alignment="CENTER"
+                          spacing="10"
+                          style="-fx-background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 25;
+                                 -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 20, 0, 0, 8);">
+                        <Label text="TOTAL GENERAL"
+                               style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: 600; -fx-font-size: 14px;"/>
+                        <Label fx:id="totalGeneralLabel"
+                               text=""
+                               style="-fx-text-fill: white; -fx-font-weight: bold;">
+                            <font>
+                                <Font size="36"/>
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <!-- BOTÓN GUARDAR -->
+                    <Button onAction="#guardarTrabajo"
+                            text="💾 Guardar Cotización"
+                            maxWidth="400"
+                            style="-fx-background-color: linear-gradient(to right, #56ab2f, #a8e063);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 12;
+                                   -fx-padding: 18 40;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;
+                                   -fx-effect: dropshadow(gaussian, rgba(86, 171, 47, 0.4), 15, 0, 0, 6);">
+                        <font>
+                            <Font size="16"/>
+                        </font>
+                    </Button>
+
+                    <!-- ESPACIADO FINAL -->
+                    <Region prefHeight="30.0"/>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

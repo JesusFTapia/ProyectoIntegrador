@@ -16,7 +16,7 @@
             <content>
                 <VBox fx:id="formContainer" alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
 
-                    <Label style="-fx-font-size: 16pt; -fx-font-weight: bold;" text="Formulario de Creación de Trabajo" />
+                    <Label style="-fx-font-size: 16pt; -fx-font-weight: bold;" text="Formulario de Creación de Cotizaciones" />
 
                     <!-- CLIENTE -->
                     <Label text="Seleccionar Cliente:" style="-fx-font-weight: bold;" />
@@ -26,8 +26,8 @@
                     </HBox>
 
                     <!-- TIPO DE TRABAJO -->
-                    <Label text="Seleccionar tipo de trabajo:" style="-fx-font-weight: bold;" />
-                    <ComboBox fx:id="tipoTrabajoComboBox" prefWidth="400.0" promptText="Seleccione tipo de trabajo..." />
+                    <Label text="Seleccionar tipo de cotizacion" style="-fx-font-weight: bold;" />
+                    <ComboBox fx:id="tipoTrabajoComboBox" prefWidth="400.0" promptText="Seleccione tipo de cotizacion..." />
 
                     <!-- DATOS DEL VEHÍCULO (dinámico) -->
                     <VBox fx:id="vehiculoContainer" spacing="10" visible="false" managed="false"
@@ -45,9 +45,9 @@
                     </VBox>
 
                     <!-- DESCRIPCIÓN -->
-                    <Label text="Descripción del trabajo:" style="-fx-font-weight: bold;" />
+                    <Label text="Descripción de la cotizacion" style="-fx-font-weight: bold;" />
                     <TextArea fx:id="descripcionTextArea" prefHeight="100.0" prefWidth="400.0" wrapText="true"
-                              promptText="Describe el trabajo a realizar..." />
+                              promptText="Describe la cotizacion a realizar..." />
 
                     <!-- FECHA DE ENTREGA -->
                     <Label text="Fecha de Entrega:" style="-fx-font-weight: bold;" />
@@ -105,7 +105,7 @@
                     <!-- BOTÓN GUARDAR -->
                     <Button onAction="#guardarTrabajo"
                             style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 15 30; -fx-font-size: 14pt; -fx-font-weight: bold;"
-                            text="Guardar Trabajo" />
+                            text="Guardar Cotizacion" />
 
                     <Label text=" " prefHeight="20.0" />
 

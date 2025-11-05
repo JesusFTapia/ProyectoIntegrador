@@ -14,6 +14,7 @@ import com.mycompany.moxxdesignsdbconnection.entitys.Job;
 import com.mycompany.moxxdesignsdbconnection.entitys.VehicularJob;
 import java.util.List;
 import com.mycompany.moxxdesignsdbconnection.repository.IJobRepository;
+import java.util.Optional;
 
 public class JobService {
 
@@ -39,6 +40,16 @@ public class JobService {
 
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
+    }
+    
+    public String changeState(long id){
+        
+        try {
+            jobRepository.changeState(id);
+            return "Cotizacion cancelada correctamente";
+        } catch (Exception e) {
+            throw new RuntimeException("Error al cambiar el estado del trabajo: " + e.getMessage(), e);
+        }
     }
 
     private boolean invalidJob(Job job) {

@@ -14,7 +14,7 @@ public class administrarTrabajosController {
     public void handleIrAVistaUno() {
         if (padreController != null) {
 
-            padreController.cargarVista("/fxml/vistaCrearTrabajo.fxml");
+            padreController.cargarVista("/fxml/vistaCrearCotizacion.fxml");
         }
     }
 
@@ -22,7 +22,7 @@ public class administrarTrabajosController {
     public void cargarVistaUno() {
         if (padreController != null) {
             // Llama al método del padre para cargar la nueva vista en su AnchorPane
-            padreController.cargarVista("/fxml/vistaCrearTrabajo.fxml");
+            padreController.cargarVista("/fxml/vistaCrearCotizacion.fxml");
         } else {
             System.err.println("Error: No se ha establecido la referencia al controlador padre (vistaTrabajosController).");
         }
@@ -33,7 +33,7 @@ public class administrarTrabajosController {
     public void cargarVistaDos() {
         if (padreController != null) {
             // Llama al método del padre para cargar la nueva vista
-            padreController.cargarVista("/fxml/vistaConsultarTrabajos.fxml");
+            padreController.cargarVista("/fxml/vistaCotizacionRead.fxml");
         }
     }
 }

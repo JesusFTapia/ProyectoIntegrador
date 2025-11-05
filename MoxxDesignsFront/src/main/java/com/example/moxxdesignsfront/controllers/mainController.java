@@ -26,28 +26,34 @@ public class mainController implements Initializable {
     private VBox centerVBox;
 
     @FXML private Button trabajosButton;
-    @FXML private Button citasButton;
+    @FXML private Button cotizacionButton;
+    @FXML private Button citaButton;
     @FXML private Button consultarButton;
     private List<Button> menuButtons;
 
     @FXML
-    private ImageView ImageViewTrabajos;
+    private ImageView ImageViewCotizacion;
+    
+    @FXML
+    private ImageView ImageViewTrabajo;
 
     @FXML
-    private ImageView ImageViewCitas;
+    private ImageView ImageViewCita;
 
     @FXML
     private ImageView ImageViewConsultar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuButtons = Arrays.asList(trabajosButton, citasButton, consultarButton);
-        handleButtonActivation(trabajosButton);
-        setView("/fxml/vistaTrabajos.fxml");
+        menuButtons = Arrays.asList(cotizacionButton, trabajosButton, citaButton, consultarButton);
+        handleButtonActivation(cotizacionButton);
+        setView("/fxml/vistaCotizacion.fxml");
+        Image svgImage0 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
+        ImageViewCotizacion.setImage(svgImage0);
         Image svgImage1 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
-        ImageViewTrabajos.setImage(svgImage1);
+        ImageViewTrabajo.setImage(svgImage1);
         Image svgImage2 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
-        ImageViewCitas.setImage(svgImage2);
+        ImageViewCita.setImage(svgImage2);
         Image svgImage3 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewConsultar.setImage(svgImage3);
     }
@@ -89,10 +95,16 @@ public class mainController implements Initializable {
         handleButtonActivation(trabajosButton);
         setView("/fxml/vistaTrabajos.fxml");
     }
+    
+    @FXML
+    public void handleCotizacionButton() {
+        handleButtonActivation(cotizacionButton);
+        setView("/fxml/vistaCotizacion.fxml");
+    }
 
     @FXML
     public void handleCitasButton() {
-        handleButtonActivation(citasButton);
+        handleButtonActivation(citaButton);
         setView("/fxml/vistaCitas.fxml");
     }
 

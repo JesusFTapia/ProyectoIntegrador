@@ -68,6 +68,30 @@ public class JobRepositoryImpl implements IJobRepository {
         }
         return jobs;
     }
+    
+    @Override
+    public void changeState(long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Job job = em.find(Job.class, id);
+            if (job != null) {
+                job.setState("Cancelado");
+                em.merge(job);
+            } else {
+                throw new RuntimeException("No se encontró el trabajo con ID: " + id);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new RuntimeException("Error al cambiar el estado del trabajo: " + e.getMessage(), e);
+        } finally {
+            em.close();
+        }
+    }
+
 
     @Override
     public void delete(Job job) {

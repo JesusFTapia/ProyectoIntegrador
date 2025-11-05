@@ -9,8 +9,8 @@
     <left>
         <VBox prefHeight="498.0" prefWidth="173.0" style="-fx-background-color: #9C7277;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="trabajosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleTrabajosButton" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Trabajos" textFill="WHITE"> <graphic>
-                    <ImageView fx:id="ImageViewTrabajos" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                <Button fx:id="cotizacionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleCotizacionButton" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Cotizacion" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewCotizacion" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                 </graphic>
                     <VBox.margin>
                         <Insets />
@@ -19,8 +19,18 @@
                         <Insets left="20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="citasButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleCitasButton" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Citas" textFill="WHITE"> <graphic>
-                    <ImageView fx:id="ImageViewCitas" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                <Button fx:id="trabajosButton" alignment="BASELINE_LEFT" mnemonicParsing="false"  prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Trabajos" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewTrabajo" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                </graphic>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="citaButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="47.0" prefWidth="192.0" styleClass="menu-item" stylesheets="@../css/styling.css" text="Citas" textFill="WHITE"> <graphic>
+                    <ImageView fx:id="ImageViewCita" fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                 </graphic>
                     <VBox.margin>
                         <Insets />

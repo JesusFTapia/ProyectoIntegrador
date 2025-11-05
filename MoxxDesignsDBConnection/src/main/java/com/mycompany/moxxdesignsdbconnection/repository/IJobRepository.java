@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IJobRepository {
+    void changeState(long id);
     Job save(Job job);
     Optional<Job> findById(long id);
     List<Job> findAll();

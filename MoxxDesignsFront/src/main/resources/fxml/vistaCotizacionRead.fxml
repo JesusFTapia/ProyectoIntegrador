@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.example.moxxdesignsfront.controllers.vistaCotizacionRead">
+
+    <children>
+        <VBox spacing="15" style="-fx-padding: 20;" 
+              AnchorPane.bottomAnchor="0.0" 
+              AnchorPane.leftAnchor="0.0" 
+              AnchorPane.rightAnchor="0.0" 
+              AnchorPane.topAnchor="0.0">
+
+            <!-- Título -->
+            <Label text="Gestión de Cotizaciones" 
+                   style="-fx-font-size: 20pt; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+
+            <!-- Barra de búsqueda y acciones -->
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-background-radius: 5;">
+                <Label text="Buscar:" style="-fx-font-weight: bold;" />
+                <TextField fx:id="buscarTextField" 
+                          promptText="Buscar por ID, cliente, estado o total..." 
+                          prefWidth="350.0" 
+                          HBox.hgrow="ALWAYS" />
+                
+                <Button text="🔄 Refrescar" 
+                        onAction="#refrescarTabla" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 8 15; -fx-font-weight: bold;" />
+                
+                <Region HBox.hgrow="ALWAYS" />
+                
+                <Label fx:id="totalRegistrosLabel" 
+                       text="Total de registros: 0" 
+                       style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" />
+            </HBox>
+
+            <!-- Tabla de Trabajos/Cotizaciones -->
+            <TableView fx:id="tablaQuotations" VBox.vgrow="ALWAYS" style="-fx-border-color: #bdc3c7; -fx-border-width: 1; -fx-border-radius: 5;">
+                <columns>
+                    <TableColumn fx:id="columnaId" 
+                                text="ID" 
+                                prefWidth="60.0" 
+                                resizable="false" 
+                                style="-fx-alignment: CENTER;" />
+                    
+                    <TableColumn fx:id="columnaFechaEmision" 
+                                text="Fecha Emisión" 
+                                prefWidth="120.0" 
+                                style="-fx-alignment: CENTER;" />
+                    
+                    <TableColumn fx:id="columnaCliente" 
+                                text="Cliente" 
+                                prefWidth="150.0" />
+                    
+                    <TableColumn fx:id="columnaTipoTrabajo" 
+                                text="Tipo de Trabajo" 
+                                prefWidth="150.0" />
+                    
+                    <TableColumn fx:id="columnaEstado" 
+                                text="Estado" 
+                                prefWidth="100.0" 
+                                style="-fx-alignment: CENTER;" />
+                    
+                    <TableColumn fx:id="columnaManoObra" 
+                                text="Mano de Obra" 
+                                prefWidth="120.0" 
+                                style="-fx-alignment: CENTER_RIGHT;" />
+                    
+                    <TableColumn fx:id="columnaTotal" 
+                                text="Total" 
+                                prefWidth="100.0" 
+                                style="-fx-alignment: CENTER_RIGHT;" />
+                    
+                    <TableColumn fx:id="columnaAcciones" 
+                                text="Acciones" 
+                                prefWidth="200.0" 
+                                resizable="false" 
+                                style="-fx-alignment: CENTER;" />
+                </columns>
+                
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                
+                <placeholder>
+                    <Label text="No hay trabajos registrados" 
+                           style="-fx-text-fill: #95a5a6; -fx-font-size: 14pt;" />
+                </placeholder>
+            </TableView>
+
+            <!-- Información adicional -->
+            <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: #e8f8f5; -fx-background-radius: 5;">
+                <Label text="ℹ️" style="-fx-font-size: 14pt;" />
+                <Label text="Haga clic en 'Detalles' para ver la información completa de la cotización, o en 'Cancelar' para cambiar el estado a CANCELADO." 
+                       style="-fx-text-fill: #16a085; -fx-font-style: italic;" 
+                       wrapText="true" 
+                       HBox.hgrow="ALWAYS" />
+            </HBox>
+
+        </VBox>
+    </children>
+
+</AnchorPane>

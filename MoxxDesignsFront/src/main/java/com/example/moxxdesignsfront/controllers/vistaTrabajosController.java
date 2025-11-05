@@ -32,7 +32,7 @@ public class vistaTrabajosController{
 
     @FXML
     public void cargarVistaDos() {
-        cargarVista("/fxml/vistaConsultarTrabajos.fxml");
+        cargarVista("/fxml/vistaCotizacionRead.fxml");
     }
 
     protected void cargarVista(String fxmlPath) {

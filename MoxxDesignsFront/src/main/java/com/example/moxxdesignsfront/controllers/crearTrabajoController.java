@@ -230,11 +230,12 @@ public class crearTrabajoController {
                 new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
 
         columnaPrecioUnitario.setCellValueFactory(cellData ->
-                new SimpleDoubleProperty(cellData.getValue().getUnitPrice()).asObject());
+                new SimpleDoubleProperty(cellData.getValue().getMaterial().getPrice()).asObject());
 
         columnaSubtotal.setCellValueFactory(cellData -> {
             QuotationMaterialDetail detalle = cellData.getValue();
-            double subtotal = detalle.getQuantity() * detalle.getUnitPrice();
+
+            double subtotal = detalle.getQuantity() * detalle.getMaterial().getPrice();
             return new SimpleDoubleProperty(subtotal).asObject();
         });
 
@@ -291,23 +292,18 @@ public class crearTrabajoController {
     private void agregarMaterial() {
         Material materialSeleccionado = materialComboBox.getValue();
         String cantidadStr = cantidadTextField.getText();
-        String precioStr = precioUnitarioTextField.getText();
 
         if (materialSeleccionado == null) {
             mostrarAlerta("Error", "Debe seleccionar un material");
             return;
         }
 
-        if (cantidadStr.isEmpty() || precioStr.isEmpty()) {
-            mostrarAlerta("Error", "Debe ingresar cantidad y precio unitario");
-            return;
-        }
+
 
         try {
             int cantidad = Integer.parseInt(cantidadStr);
-            double precioUnitario = Double.parseDouble(precioStr);
 
-            if (cantidad <= 0 || precioUnitario <= 0) {
+            if (cantidad <= 0 ) {
                 mostrarAlerta("Error", "La cantidad y el precio deben ser mayores a cero");
                 return;
             }
@@ -315,13 +311,12 @@ public class crearTrabajoController {
             QuotationMaterialDetail detalle = new QuotationMaterialDetail();
             detalle.setMaterial(materialSeleccionado);
             detalle.setQuantity(cantidad);
-            detalle.setUnitPrice(precioUnitario);
+            detalle.setUnitPrice(materialSeleccionado.getPrice());
 
             materialesAgregados.add(detalle);
 
             materialComboBox.setValue(null);
             cantidadTextField.clear();
-            precioUnitarioTextField.clear();
 
             actualizarTotales();
 
@@ -668,7 +663,6 @@ public class crearTrabajoController {
         anioTextField.clear();
         materialComboBox.setValue(null);
         cantidadTextField.clear();
-        precioUnitarioTextField.clear();
         manoDeObraTextField.clear();
         materialesAgregados.clear();
         limpiarArchivo(); // Limpiar también el archivo

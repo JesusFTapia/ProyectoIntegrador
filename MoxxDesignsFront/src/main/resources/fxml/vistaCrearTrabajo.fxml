@@ -294,13 +294,7 @@
                                            style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
                             </VBox>
 
-                            <VBox HBox.hgrow="ALWAYS" spacing="8">
-                                <Label text="Precio Unitario"
-                                       style="-fx-text-fill: #6c757d; -fx-font-size: 13px; -fx-font-weight: 600;"/>
-                                <TextField fx:id="precioUnitarioTextField"
-                                           promptText="Ej: 50.00"
-                                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10;"/>
-                            </VBox>
+
                         </HBox>
 
                         <Button text="+ Agregar Material"
@@ -380,10 +374,10 @@
                                  -fx-padding: 25;
                                  -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 20, 0, 0, 8);">
                         <Label text="TOTAL GENERAL"
-                               style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: 600; -fx-font-size: 14px;"/>
+                               style="-fx-text-fill: black; -fx-font-weight: 600; -fx-font-size: 14px;"/>
                         <Label fx:id="totalGeneralLabel"
-                               text=""
-                               style="-fx-text-fill: white; -fx-font-weight: bold;">
+                               text="Brinde los detalles para mostrar el costo"
+                               style="-fx-text-fill: black; -fx-font-weight: bold;">
                             <font>
                                 <Font size="36"/>
                             </font>

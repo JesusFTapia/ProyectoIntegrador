@@ -1,5 +1,12 @@
 package com.example.moxxdesignsfront.controllers;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.mycompany.moxxdesignsdbconnection.entitys.*;
 import com.mycompany.moxxdesignsdbconnection.services.*;
 import com.mycompany.moxxdesignsdbconnection.repository.*;
@@ -13,19 +20,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.awt.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class crearTrabajoController {
 
@@ -516,6 +531,7 @@ public class crearTrabajoController {
         }
 
         LocalDate fechaEntrega = fechaEntregaDatePicker.getValue();
+
         if (fechaEntrega == null) {
             mostrarAlerta("Error", "Debe seleccionar una fecha de entrega");
             return;
@@ -596,11 +612,13 @@ public class crearTrabajoController {
             Job trabajo;
 
             if (trabajoVehicular != null) {
+
                 trabajoVehicular.setDeliveryDate(fechaEntregaDate);
                 trabajoVehicular.setState("PENDIENTE");
                 trabajoVehicular.setDescription(descripcion);
                 trabajoVehicular.setFileDirection(rutaArchivo); // USAR LA RUTA DEL ARCHIVO
                 trabajoVehicular.setQuotations(quotations);
+                trabajoVehicular.setJobType(tipoTrabajo);
                 trabajoVehicular.setUser(usuario);
                 trabajoVehicular.setClient(clienteSeleccionado);
 
@@ -696,5 +714,333 @@ public class crearTrabajoController {
             mostrarAlerta("Error", "No se pudo abrir el formulario de registro: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void generarTicketPDF() {
+        // Validaciones básicas
+        Client clienteSeleccionado = clienteComboBox.getValue();
+        if (clienteSeleccionado == null) {
+            mostrarAlerta("Error", "Debe seleccionar un cliente de la lista");
+            return;
+        }
+
+        JobType tipoTrabajo = tipoTrabajoComboBox.getValue();
+        if (tipoTrabajo == null) {
+            mostrarAlerta("Error", "Debe seleccionar un tipo de trabajo");
+            return;
+        }
+
+        LocalDate fechaEntrega = fechaEntregaDatePicker.getValue();
+        if (fechaEntrega == null) {
+            mostrarAlerta("Error", "Debe seleccionar una fecha de entrega");
+            return;
+        }
+
+        String descripcion = descripcionTextArea.getText();
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            mostrarAlerta("Error", "Debe ingresar una descripción del trabajo");
+            return;
+        }
+
+        try {
+            // Crear directorio si no existe
+            File directorio = new File("cotizaciones");
+            if (!directorio.exists()) {
+                directorio.mkdir();
+            }
+
+            // Generar número de cotización único
+            String numeroCotizacion = "COT-" + System.currentTimeMillis();
+
+            // Nombre del archivo
+            String nombreArchivo = "cotizaciones/cotizacion_" +
+                    clienteSeleccionado.getName().replaceAll("\\s+", "_") +
+                    "_" + System.currentTimeMillis() + ".pdf";
+
+            // Crear documento tamaño carta
+            Document document = new Document(PageSize.LETTER);
+            document.setMargins(40, 40, 50, 50);
+            PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            document.open();
+
+            // Definir fuentes
+            Font empresaFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 22, new BaseColor(33, 37, 41));
+            Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, new BaseColor(52, 58, 64));
+            Font seccionFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, new BaseColor(52, 58, 64));
+            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+            Font boldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.BLACK);
+            Font smallFont = FontFactory.getFont(FontFactory.HELVETICA, 8, new BaseColor(108, 117, 125));
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaActual = new Date();
+
+            // ==================== ENCABEZADO ====================
+            // Tabla para encabezado con logo (espacio) y datos de empresa
+            PdfPTable headerTable = new PdfPTable(2);
+            headerTable.setWidthPercentage(100);
+            headerTable.setWidths(new float[]{1, 2});
+            headerTable.setSpacingAfter(20);
+
+            // Celda izquierda - Logo/Empresa
+            PdfPCell logoCell = new PdfPCell();
+            logoCell.setBorder(Rectangle.NO_BORDER);
+            Paragraph empresa = new Paragraph("MOXX\nDESIGNS", empresaFont);
+            empresa.setAlignment(Element.ALIGN_LEFT);
+            logoCell.addElement(empresa);
+            headerTable.addCell(logoCell);
+
+            // Celda derecha - Información de contacto
+            PdfPCell infoCell = new PdfPCell();
+            infoCell.setBorder(Rectangle.NO_BORDER);
+            infoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            Paragraph contacto = new Paragraph();
+            contacto.add(new Chunk("COTIZACIÓN\n", tituloFont));
+            contacto.add(new Chunk("\nNúmero: " + numeroCotizacion + "\n", boldFont));
+            contacto.add(new Chunk("Fecha: " + dateFormat.format(fechaActual) + "\n", normalFont));
+            contacto.add(new Chunk("\nTeléfono: (644) 123-4567\n", smallFont));
+            contacto.add(new Chunk("Email: contacto@moxxdesigns.com\n", smallFont));
+            contacto.setAlignment(Element.ALIGN_RIGHT);
+            infoCell.addElement(contacto);
+            headerTable.addCell(infoCell);
+
+            document.add(headerTable);
+
+            // Línea divisoria
+            LineSeparator line = new LineSeparator();
+            line.setLineColor(new BaseColor(52, 58, 64));
+            line.setLineWidth(1f);
+            document.add(new Chunk(line));
+            document.add(Chunk.NEWLINE);
+
+            // ==================== INFORMACIÓN DEL CLIENTE ====================
+            PdfPTable clienteTable = new PdfPTable(2);
+            clienteTable.setWidthPercentage(100);
+            clienteTable.setWidths(new float[]{1, 1});
+            clienteTable.setSpacingAfter(15);
+
+            // Datos del cliente
+            PdfPCell clienteHeader = new PdfPCell(new Phrase("DATOS DEL CLIENTE", seccionFont));
+            clienteHeader.setBackgroundColor(new BaseColor(248, 249, 250));
+            clienteHeader.setPadding(8);
+            clienteHeader.setColspan(2);
+            clienteHeader.setBorder(Rectangle.NO_BORDER);
+            clienteTable.addCell(clienteHeader);
+
+            addTableRow(clienteTable, "Nombre:", clienteSeleccionado.getName(), boldFont, normalFont);
+            addTableRow(clienteTable, "Teléfono:", clienteSeleccionado.getPhoneNumber(), boldFont, normalFont);
+
+            document.add(clienteTable);
+            document.add(Chunk.NEWLINE);
+
+            // ==================== DETALLES DEL SERVICIO ====================
+            PdfPTable servicioTable = new PdfPTable(2);
+            servicioTable.setWidthPercentage(100);
+            servicioTable.setWidths(new float[]{1, 1});
+            servicioTable.setSpacingAfter(15);
+
+            PdfPCell servicioHeader = new PdfPCell(new Phrase("DETALLES DEL SERVICIO", seccionFont));
+            servicioHeader.setBackgroundColor(new BaseColor(248, 249, 250));
+            servicioHeader.setPadding(8);
+            servicioHeader.setColspan(2);
+            servicioHeader.setBorder(Rectangle.NO_BORDER);
+            servicioTable.addCell(servicioHeader);
+
+            addTableRow(servicioTable, "Tipo de trabajo:", tipoTrabajo.getName(), boldFont, normalFont);
+            addTableRow(servicioTable, "Fecha de entrega:",
+                    dateFormat.format(Date.from(fechaEntrega.atStartOfDay(ZoneId.systemDefault()).toInstant())),
+                    boldFont, normalFont);
+
+            document.add(servicioTable);
+
+            // Descripción del trabajo
+            Paragraph descTitulo = new Paragraph("Descripción del trabajo:", boldFont);
+            descTitulo.setSpacingBefore(5);
+            document.add(descTitulo);
+
+            Paragraph descContenido = new Paragraph(descripcion, normalFont);
+            descContenido.setIndentationLeft(15);
+            descContenido.setSpacingAfter(15);
+            descContenido.setAlignment(Element.ALIGN_JUSTIFIED);
+            document.add(descContenido);
+
+            // ==================== DATOS DEL VEHÍCULO ====================
+            String nombreTipo = tipoTrabajo.getName().toLowerCase();
+            if (nombreTipo.contains("auto") || nombreTipo.contains("moto") || nombreTipo.contains("vehículo")) {
+                String modelo = modeloTextField.getText();
+                String color = colorTextField.getText();
+                String anio = anioTextField.getText();
+
+                if (!modelo.isEmpty() || !color.isEmpty() || !anio.isEmpty()) {
+                    PdfPTable vehiculoTable = new PdfPTable(2);
+                    vehiculoTable.setWidthPercentage(100);
+                    vehiculoTable.setWidths(new float[]{1, 1});
+                    vehiculoTable.setSpacingAfter(15);
+
+                    PdfPCell vehiculoHeader = new PdfPCell(new Phrase("DATOS DEL VEHÍCULO", seccionFont));
+                    vehiculoHeader.setBackgroundColor(new BaseColor(248, 249, 250));
+                    vehiculoHeader.setPadding(8);
+                    vehiculoHeader.setColspan(2);
+                    vehiculoHeader.setBorder(Rectangle.NO_BORDER);
+                    vehiculoTable.addCell(vehiculoHeader);
+
+                    if (!modelo.isEmpty()) addTableRow(vehiculoTable, "Modelo:", modelo, boldFont, normalFont);
+                    if (!color.isEmpty()) addTableRow(vehiculoTable, "Color:", color, boldFont, normalFont);
+                    if (!anio.isEmpty()) addTableRow(vehiculoTable, "Año:", anio, boldFont, normalFont);
+
+                    document.add(vehiculoTable);
+                }
+            }
+
+            document.add(Chunk.NEWLINE);
+
+            // ==================== TABLA DE MATERIALES ====================
+            if (!materialesAgregados.isEmpty()) {
+                Paragraph matTitulo = new Paragraph("DETALLE DE MATERIALES", seccionFont);
+                matTitulo.setSpacingBefore(10);
+                matTitulo.setSpacingAfter(10);
+                document.add(matTitulo);
+
+                PdfPTable materialesTable = new PdfPTable(4);
+                materialesTable.setWidthPercentage(100);
+                materialesTable.setWidths(new float[]{3, 1, 1.5f, 1.5f});
+
+                // Encabezados de tabla
+                BaseColor headerColor = new BaseColor(52, 58, 64);
+                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.WHITE);
+
+                addHeaderCell(materialesTable, "Material", headerFont, headerColor);
+                addHeaderCell(materialesTable, "Cant.", headerFont, headerColor);
+                addHeaderCell(materialesTable, "Precio Unit.", headerFont, headerColor);
+                addHeaderCell(materialesTable, "Subtotal", headerFont, headerColor);
+
+                double totalMateriales = 0.0;
+                for (QuotationMaterialDetail detalle : materialesAgregados) {
+                    double subtotal = detalle.getQuantity() * detalle.getUnitPrice();
+                    totalMateriales += subtotal;
+
+                    addBodyCell(materialesTable, detalle.getMaterial().getName(), normalFont, Element.ALIGN_LEFT);
+                    addBodyCell(materialesTable, String.valueOf(detalle.getQuantity()), normalFont, Element.ALIGN_CENTER);
+                    addBodyCell(materialesTable, String.format("$%.2f", detalle.getUnitPrice()), normalFont, Element.ALIGN_RIGHT);
+                    addBodyCell(materialesTable, String.format("$%.2f", subtotal), normalFont, Element.ALIGN_RIGHT);
+                }
+
+                document.add(materialesTable);
+
+                // Subtotal materiales
+                Paragraph subtotalMat = new Paragraph(String.format("Subtotal Materiales: $%.2f", totalMateriales), boldFont);
+                subtotalMat.setAlignment(Element.ALIGN_RIGHT);
+                subtotalMat.setSpacingBefore(10);
+                document.add(subtotalMat);
+            }
+
+            // ==================== MANO DE OBRA ====================
+            double manoDeObra = 0.0;
+            try {
+                String manoDeObraStr = manoDeObraTextField.getText();
+                if (manoDeObraStr != null && !manoDeObraStr.isEmpty()) {
+                    manoDeObra = Double.parseDouble(manoDeObraStr);
+                }
+            } catch (NumberFormatException e) {
+                manoDeObra = 0.0;
+            }
+
+            if (manoDeObra > 0) {
+                Paragraph manoTxt = new Paragraph(String.format("Mano de Obra: $%.2f", manoDeObra), boldFont);
+                manoTxt.setAlignment(Element.ALIGN_RIGHT);
+                manoTxt.setSpacingBefore(5);
+                document.add(manoTxt);
+            }
+
+            // ==================== TOTAL ====================
+            document.add(Chunk.NEWLINE);
+            LineSeparator totalLine = new LineSeparator();
+            totalLine.setLineColor(new BaseColor(52, 58, 64));
+            totalLine.setLineWidth(2f);
+            document.add(new Chunk(totalLine));
+
+            double totalGeneral = calcularTotalGeneral();
+            Paragraph totalParagraph = new Paragraph(String.format("TOTAL: $%.2f MXN", totalGeneral),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, new BaseColor(52, 58, 64)));
+            totalParagraph.setAlignment(Element.ALIGN_RIGHT);
+            totalParagraph.setSpacingBefore(10);
+            totalParagraph.setSpacingAfter(10);
+            document.add(totalParagraph);
+
+            document.add(new Chunk(totalLine));
+
+            // ==================== PIE DE PÁGINA ====================
+            document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+
+            Paragraph validez = new Paragraph("Validez de la cotización: 15 días a partir de la fecha de emisión", smallFont);
+            validez.setAlignment(Element.ALIGN_LEFT);
+            validez.setSpacingBefore(20);
+            document.add(validez);
+
+            Paragraph condiciones = new Paragraph(
+                    "• Esta cotización no incluye IVA\n" +
+                            "• Los precios pueden variar según disponibilidad de materiales\n" +
+                            "• Se requiere anticipo del 50% para iniciar el trabajo\n" +
+                            "• Tiempos de entrega sujetos a confirmación",
+                    smallFont
+            );
+            condiciones.setSpacingBefore(10);
+            document.add(condiciones);
+
+            // Agradecimiento
+            Paragraph gracias = new Paragraph("\n\n¡Gracias por su confianza!",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 12, new BaseColor(52, 58, 64)));
+            gracias.setAlignment(Element.ALIGN_CENTER);
+            document.add(gracias);
+
+            document.close();
+
+            // Mostrar mensaje de éxito y preguntar si desea abrir el PDF
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Cotización Generada");
+            alert.setHeaderText("Cotización PDF creada exitosamente");
+            alert.setContentText("Número: " + numeroCotizacion + "\n" +
+                    "Archivo: " + nombreArchivo + "\n\n¿Desea abrir el archivo?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Desktop.getDesktop().open(new File(nombreArchivo));
+            }
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo generar la cotización: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Métodos auxiliares para crear celdas de tabla
+    private void addTableRow(PdfPTable table, String label, String value, Font labelFont, Font valueFont) {
+        PdfPCell labelCell = new PdfPCell(new Phrase(label, labelFont));
+        labelCell.setBorder(Rectangle.NO_BORDER);
+        labelCell.setPadding(5);
+        table.addCell(labelCell);
+
+        PdfPCell valueCell = new PdfPCell(new Phrase(value, valueFont));
+        valueCell.setBorder(Rectangle.NO_BORDER);
+        valueCell.setPadding(5);
+        table.addCell(valueCell);
+    }
+
+    private void addHeaderCell(PdfPTable table, String text, Font font, BaseColor bgColor) {
+        PdfPCell cell = new PdfPCell(new Phrase(text, font));
+        cell.setBackgroundColor(bgColor);
+        cell.setPadding(8);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        table.addCell(cell);
+    }
+
+    private void addBodyCell(PdfPTable table, String text, Font font, int alignment) {
+        PdfPCell cell = new PdfPCell(new Phrase(text, font));
+        cell.setPadding(6);
+        cell.setHorizontalAlignment(alignment);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        table.addCell(cell);
     }
 }

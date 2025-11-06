@@ -17,6 +17,7 @@ module com.example.moxxdesignsfront {
     requires batik.transcoder;
 
     requires MoxxDesignsDBConnection;
+    requires itextpdf;
 
     opens com.example.moxxdesignsfront to javafx.fxml;
     exports com.example.moxxdesignsfront;

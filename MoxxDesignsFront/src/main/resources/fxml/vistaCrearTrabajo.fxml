@@ -385,20 +385,35 @@
                     </VBox>
 
                     <!-- BOTÓN GUARDAR -->
-                    <Button onAction="#guardarTrabajo"
-                            text="💾 Guardar Cotización"
-                            maxWidth="400"
-                            style="-fx-background-color: linear-gradient(to right, #56ab2f, #a8e063);
-                                   -fx-text-fill: white;
-                                   -fx-background-radius: 12;
-                                   -fx-padding: 18 40;
-                                   -fx-font-weight: bold;
-                                   -fx-cursor: hand;
-                                   -fx-effect: dropshadow(gaussian, rgba(86, 171, 47, 0.4), 15, 0, 0, 6);">
-                        <font>
-                            <Font size="16"/>
-                        </font>
-                    </Button>
+                    <HBox alignment="CENTER" spacing="20">
+                        <Button onAction="#guardarTrabajo"
+                                text="💾 Guardar Cotización"
+                                style="-fx-background-color: linear-gradient(to right, #56ab2f, #a8e063);
+                   -fx-text-fill: white;
+                   -fx-background-radius: 12;
+                   -fx-padding: 18 40;
+                   -fx-font-weight: bold;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(gaussian, rgba(86, 171, 47, 0.4), 15, 0, 0, 6);">
+                            <font>
+                                <Font size="16"/>
+                            </font>
+                        </Button>
+
+                        <Button onAction="#generarTicketPDF"
+                                text="🎫 Generar Ticket PDF"
+                                style="-fx-background-color: linear-gradient(to right, #FF6B6B, #FF8E53);
+                   -fx-text-fill: white;
+                   -fx-background-radius: 12;
+                   -fx-padding: 18 40;
+                   -fx-font-weight: bold;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(gaussian, rgba(255, 107, 107, 0.4), 15, 0, 0, 6);">
+                            <font>
+                                <Font size="16"/>
+                            </font>
+                        </Button>
+                    </HBox>
 
                     <!-- ESPACIADO FINAL -->
                     <Region prefHeight="30.0"/>

@@ -535,6 +535,10 @@ public class vistaCrearTrabajoController {
             mostrarAlerta("Error", "Debe seleccionar una fecha de entrega");
             return;
         }
+        if (fechaEntrega.isBefore(LocalDate.now())) {
+        mostrarAlerta("Error", "La fecha de entrega no puede ser un día anterior a hoy.");
+        return;
+    }
 
         String descripcion = descripcionTextArea.getText();
         if (descripcion == null || descripcion.trim().isEmpty()) {

@@ -631,6 +631,8 @@ public class vistaCrearTrabajoController {
                         tipoTrabajo,
                         usuario,
                         clienteSeleccionado);
+                
+                quotation.setJob(trabajoGenerico);
 
                 trabajo = quotationService.registerNewJob(trabajoGenerico);
             }

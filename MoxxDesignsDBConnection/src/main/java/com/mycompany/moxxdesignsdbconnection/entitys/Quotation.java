@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,10 +41,10 @@ public class Quotation implements Serializable {
     private float laborCost;
     
     @ManyToOne
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "job_id", nullable=false)
     private Job job;
 
-    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<QuotationMaterialDetail> quotationMaterialDetails;
     
     public Quotation() {
@@ -115,11 +116,5 @@ public class Quotation implements Serializable {
     public String toString() {
         return "Quotation{" + "id=" + id + ", total=" + total + ", emisionDate=" + emisionDate + ", laborCost=" + laborCost + ", job=" + job + ", quotationMaterialDetails=" + quotationMaterialDetails + '}';
     }
-
-    
-
-    
-    
-    
     
 }

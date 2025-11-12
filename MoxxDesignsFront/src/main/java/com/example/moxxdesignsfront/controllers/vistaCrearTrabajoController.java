@@ -9,7 +9,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.mycompany.moxxdesignsdbconnection.entitys.*;
 import com.mycompany.moxxdesignsdbconnection.services.*;
-import com.mycompany.moxxdesignsdbconnection.repository.*;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -42,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class crearTrabajoController {
+public class vistaCrearTrabajoController {
 
     private QuotationService quotationService = new QuotationService();
 

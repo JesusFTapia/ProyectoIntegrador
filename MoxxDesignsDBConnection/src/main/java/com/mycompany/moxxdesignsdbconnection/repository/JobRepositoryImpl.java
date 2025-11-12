@@ -59,7 +59,15 @@ public class JobRepositoryImpl implements IJobRepository {
         EntityManager em = emf.createEntityManager();
         List<Job> jobs = List.of();
         try {
-            TypedQuery<Job> query = em.createQuery("SELECT j FROM Job j", Job.class);
+            TypedQuery<Job> query = em.createQuery(
+            "SELECT DISTINCT j FROM Job j " +
+            "LEFT JOIN FETCH j.quotations q " +
+            "LEFT JOIN FETCH q.quotationMaterialDetails qmd " +
+            "LEFT JOIN FETCH qmd.material " +
+            "LEFT JOIN FETCH j.client " +
+            "LEFT JOIN FETCH j.jobType", 
+            Job.class
+        );
             jobs = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();

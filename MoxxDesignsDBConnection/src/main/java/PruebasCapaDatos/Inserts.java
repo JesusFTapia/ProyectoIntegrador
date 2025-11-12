@@ -31,7 +31,7 @@ public class Inserts {
            
            IUserRepository userRepository=new UserRepositoryImpl();
            UserService userService=new UserService(userRepository);
-//          User usuario=userService.registerNewUser(new User("Admin", "Jesús", "Pedro2"));
+          User usuario=userService.registerNewUser(new User("Admin", "Jesús", "Pedro2"));
         IClientRepository clientRepository=new ClientRepositoryImpl();
         
         ClientService clientService =new ClientService(clientRepository);

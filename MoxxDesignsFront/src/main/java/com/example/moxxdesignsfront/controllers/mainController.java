@@ -69,8 +69,8 @@ public class mainController implements Initializable {
                 ((vistaTrabajosController) controller).setMainController(this);
             }
 
-            if (controller instanceof crearTrabajoController) {
-                ((crearTrabajoController) controller).cargarClientes();
+            if (controller instanceof vistaCrearTrabajoController) {
+                ((vistaCrearTrabajoController) controller).cargarClientes();
             }
 
         } catch (IOException e) {

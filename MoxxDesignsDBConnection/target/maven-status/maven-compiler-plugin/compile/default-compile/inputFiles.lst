@@ -1,35 +1,35 @@
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/Quotation.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IMaterialRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/QuotationMaterialDetail.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/UserRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IJobRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/JobService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IAppointmentRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/JobType.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/ClientRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/JobTypeRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/JobTypeService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/PruebasCapaDatos/PruebaEliminarTrabajo.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/AppointmentRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IUserRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IJobTypeRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/VehicularJob.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/ClientService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/UserService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/IClientRepository.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/PruebasCapaDatos/PruebaEditarTrabajo.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/JobRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/User.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/exceptions/IncompleteDataException.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/Job.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/PruebasCapaDatos/PruebaAgregarTrabajo.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/GeneralJob.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/exceptions/DuplicateException.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/MaterialService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/PruebasCapaNegocio/PruebasAgregarTrabajo.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/Client.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/services/QuotationService.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/Material.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/PruebasCapaDatos/Inserts.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/repository/MaterialRepositoryImpl.java
-/Users/alejandrobel/Desktop/ISW/Agosto - Diciembre 2025/integrador/ProyectoIntegrador/MoxxDesignsDBConnection/src/main/java/com/mycompany/moxxdesignsdbconnection/entitys/Appointment.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\Appointment.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\Client.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\GeneralJob.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\Job.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\JobType.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\Material.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\Quotation.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\QuotationMaterialDetail.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\User.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\entitys\VehicularJob.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\exceptions\DuplicateException.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\exceptions\IncompleteDataException.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\AppointmentRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\ClientRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IAppointmentRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IClientRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IJobRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IJobTypeRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IMaterialRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\IUserRepository.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\JobRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\JobTypeRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\MaterialRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\repository\UserRepositoryImpl.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\ClientService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\JobService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\JobTypeService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\MaterialService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\QuotationService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\com\mycompany\moxxdesignsdbconnection\services\UserService.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\PruebasCapaDatos\Inserts.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\PruebasCapaDatos\PruebaAgregarTrabajo.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\PruebasCapaDatos\PruebaEditarTrabajo.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\PruebasCapaDatos\PruebaEliminarTrabajo.java
+C:\Users\USER\Documents\GitHub\ProyectoIntegrador\MoxxDesignsDBConnection\src\main\java\PruebasCapaNegocio\PruebasAgregarTrabajo.java

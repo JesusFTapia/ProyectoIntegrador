@@ -43,9 +43,9 @@ public class mainController implements Initializable {
         menuButtons = Arrays.asList(trabajosButton, citaButton, consultarButton);
         Image svgImage1 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewTrabajo.setImage(svgImage1);
-        Image svgImage2 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
+        Image svgImage2 = SVGLoader.loadSVG("/icons/calendar-fold.svg", 21, 21);
         ImageViewCita.setImage(svgImage2);
-        Image svgImage3 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
+        Image svgImage3 = SVGLoader.loadSVG("/icons/notebook-pen.svg", 21, 21);
         ImageViewConsultar.setImage(svgImage3);
         handleButtonActivation(trabajosButton);
 
@@ -67,6 +67,9 @@ public class mainController implements Initializable {
             // Inyectar referencia al mainController en los controladores que lo necesiten
             if (controller instanceof vistaTrabajosController) {
                 ((vistaTrabajosController) controller).setMainController(this);
+            }
+            if (controller instanceof vistaCrearTrabajoController) {
+                ((vistaCrearTrabajoController) controller).setMainController(this);
             }
 
             if (controller instanceof vistaCrearTrabajoController) {

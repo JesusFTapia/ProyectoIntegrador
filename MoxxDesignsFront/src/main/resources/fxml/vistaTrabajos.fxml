@@ -7,31 +7,62 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moxxdesignsfront.controllers.vistaTrabajosController">
-    <Button text="Crear Trabajo"
-            layoutX="256.0" layoutY="88.0"
-            onAction="#cargarVistaUno"
-            style="-fx-background-color: #9C7277;
-                                           -fx-text-fill: white;
-                                           -fx-background-radius: 8;
-                                           -fx-padding: 12 24;
-                                           -fx-font-weight: bold;
-                                           -fx-cursor: hand;">
+<?import javafx.scene.effect.DropShadow?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: linear-gradient(to bottom, #f5f5f5, #e8e8e8);"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.moxxdesignsfront.controllers.vistaTrabajosController">
+
+    <VBox alignment="TOP_CENTER" spacing="30" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- Título -->
+        <Label text="Gestión de Trabajos"
+               style="-fx-font-size: 32px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #9C7277;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);">
+            <VBox.margin>
+                <Insets top="40"/>
+            </VBox.margin>
+        </Label>
+
+        <!-- Botón Crear Trabajo -->
+        <Button text="✨ Crear Trabajo"
+                prefWidth="250.0"
+                prefHeight="60.0"
+                onAction="#cargarVistaUno"
+                style="-fx-background-color: linear-gradient(to bottom, #9C7277, #8B6569);
+                       -fx-text-fill: white;
+                       -fx-background-radius: 15;
+                       -fx-font-size: 18px;
+                       -fx-font-weight: bold;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);">
+        </Button>
+
+        <!-- Botón Ver Trabajo -->
+        <Button text="👁 Ver Trabajos"
+                prefWidth="250.0"
+                prefHeight="60.0"
+                onAction="#cargarVistaDos"
+                style="-fx-background-color: linear-gradient(to bottom, #9C7277, #8B6569);
+                       -fx-text-fill: white;
+                       -fx-background-radius: 15;
+                       -fx-font-size: 18px;
+                       -fx-font-weight: bold;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);">
+        </Button>
+
         <VBox.margin>
-            <Insets top="20"/>
+            <Insets bottom="40"/>
         </VBox.margin>
-    </Button>
-    <Button text="Ver Trabajo"
-            layoutX="257.0" layoutY="175.0"
-            onAction="#cargarVistaDos"
-            style="-fx-background-color: #9C7277;
-                                           -fx-text-fill: white;
-                                           -fx-background-radius: 8;
-                                           -fx-padding: 12 24;
-                                           -fx-font-weight: bold;
-                                           -fx-cursor: hand;">
-        <VBox.margin>
-            <Insets top="20"/>
-        </VBox.margin>
-    </Button>
+    </VBox>
+
+    <!-- Efecto de sombra para toda la ventana -->
+    <effect>
+        <DropShadow color="rgba(0,0,0,0.05)" radius="20" spread="0.2"/>
+    </effect>
 </AnchorPane>

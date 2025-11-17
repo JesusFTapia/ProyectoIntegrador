@@ -43,6 +43,8 @@ import java.util.Optional;
 
 public class vistaCrearTrabajoController {
 
+    private mainController mainController;
+
     private QuotationService quotationService = new QuotationService();
 
     @FXML
@@ -119,6 +121,17 @@ public class vistaCrearTrabajoController {
 
     // Variable para almacenar la ruta del archivo seleccionado
     private String rutaArchivoImagen = "";
+
+    public void setMainController(mainController mainController) {
+        this.mainController = mainController;
+    }
+
+    @FXML
+    public void regresar() {
+        if (mainController != null) {
+            mainController.cargarVistaEnCenter("/fxml/vistaTrabajos.fxml");
+        }
+    }
 
     @FXML
     public void initialize() {

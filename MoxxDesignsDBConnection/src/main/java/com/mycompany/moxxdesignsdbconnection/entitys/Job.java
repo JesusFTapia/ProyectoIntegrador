@@ -46,7 +46,7 @@ public abstract class Job implements Serializable {
     @Column
     private String fileDirection;
     
-    @OneToMany(mappedBy="job",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="job",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Quotation> quotations;
     
     @ManyToOne

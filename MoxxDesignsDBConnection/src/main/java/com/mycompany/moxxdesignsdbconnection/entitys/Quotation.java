@@ -44,7 +44,7 @@ public class Quotation implements Serializable {
     @JoinColumn(name = "job_id", nullable=false)
     private Job job;
 
-    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<QuotationMaterialDetail> quotationMaterialDetails;
     
     public Quotation() {

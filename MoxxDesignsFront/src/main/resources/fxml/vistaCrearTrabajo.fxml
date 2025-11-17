@@ -12,6 +12,7 @@
             fx:controller="com.example.moxxdesignsfront.controllers.vistaCrearTrabajoController">
 
     <children>
+
         <ScrollPane fitToWidth="true"
                     prefHeight="600.0"
                     prefWidth="900.0"
@@ -24,9 +25,24 @@
 
             <content>
                 <VBox fx:id="formContainer"
-                      alignment="TOP_CENTER"
+                      alignment="TOP_LEFT"
                       spacing="25"
                       style="-fx-padding: 40;">
+                    <Button text="← Regresar"
+                            onAction="#regresar"
+                            style="-fx-background-color: #6c757d;
+                       -fx-text-fill: white;
+                       -fx-background-radius: 8;
+                       -fx-padding: 10 20;
+                       -fx-font-weight: bold;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);"
+                            AnchorPane.topAnchor="15.0"
+                            AnchorPane.leftAnchor="15.0">
+                        <font>
+                            <Font size="14"/>
+                        </font>
+                    </Button>
 
                     <!-- ENCABEZADO -->
                     <VBox alignment="CENTER" spacing="5"
@@ -34,6 +50,7 @@
                                  -fx-background-radius: 15;
                                  -fx-padding: 30;
                                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 4);">
+
                         <Label text="Nuevo Trabajo"
                                style="-fx-text-fill: white; -fx-font-weight: bold;">
                             <font>

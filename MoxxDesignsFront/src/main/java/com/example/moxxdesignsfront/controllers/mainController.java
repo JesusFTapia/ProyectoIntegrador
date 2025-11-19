@@ -110,6 +110,6 @@ public class mainController implements Initializable {
             btn.setDisable(false);
         }
         activeButton.getStyleClass().add("menu-item-active");
-        activeButton.setDisable(true);
+//        activeButton.setDisable(true);
     }
 }

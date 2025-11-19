@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import javafx.application.Platform;
 
 import java.awt.*;
 import java.io.File;
@@ -716,6 +717,7 @@ public class vistaCrearTrabajoController {
     @FXML
     private void abrirRegistroCliente() {
         try {
+            int cantidadAntes = (todosLosClientes != null) ? todosLosClientes.size() : 0;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registrarCliente.fxml"));
             Parent root = loader.load();
 
@@ -727,6 +729,18 @@ public class vistaCrearTrabajoController {
             stage.showAndWait();
 
             cargarClientes();
+            
+            if (todosLosClientes != null && todosLosClientes.size() > cantidadAntes) {
+                
+                Client nuevoCliente = todosLosClientes.get(todosLosClientes.size() - 1);
+                clienteComboBox.setValue(nuevoCliente);
+                
+                Platform.runLater(() -> {
+                    clienteComboBox.getSelectionModel().select(nuevoCliente);
+                });
+                
+                System.out.println("Cliente nuevo seleccionado automáticamente: " + nuevoCliente.getName());
+            }
 
         } catch (IOException e) {
             mostrarAlerta("Error", "No se pudo abrir el formulario de registro: " + e.getMessage());

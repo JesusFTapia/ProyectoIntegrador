@@ -1,9 +1,11 @@
 com\mycompany\moxxdesignsdbconnection\entitys\Job.class
 com\mycompany\moxxdesignsdbconnection\repository\IClientRepository.class
+PruebasCapaDatos\PruebaAdministrarTrabajo.class
 com\mycompany\moxxdesignsdbconnection\repository\IJobTypeRepository.class
 com\mycompany\moxxdesignsdbconnection\repository\IMaterialRepository.class
 PruebasCapaDatos\PruebaEditarTrabajo.class
 com\mycompany\moxxdesignsdbconnection\repository\IJobRepository.class
+PruebasCapaDatos\PruebaAdministrarClientes.class
 com\mycompany\moxxdesignsdbconnection\repository\JobRepositoryImpl.class
 com\mycompany\moxxdesignsdbconnection\entitys\Appointment.class
 com\mycompany\moxxdesignsdbconnection\services\QuotationService.class
@@ -18,6 +20,7 @@ PruebasCapaDatos\PruebaEliminarTrabajo.class
 com\mycompany\moxxdesignsdbconnection\entitys\GeneralJob.class
 com\mycompany\moxxdesignsdbconnection\entitys\VehicularJob.class
 com\mycompany\moxxdesignsdbconnection\entitys\Material.class
+PruebasCapaDatos\PruebaReporteVentas.class
 com\mycompany\moxxdesignsdbconnection\repository\AppointmentRepositoryImpl.class
 com\mycompany\moxxdesignsdbconnection\services\JobTypeService.class
 com\mycompany\moxxdesignsdbconnection\services\JobService.class
@@ -32,4 +35,3 @@ com\mycompany\moxxdesignsdbconnection\exceptions\IncompleteDataException.class
 PruebasCapaDatos\Inserts.class
 com\mycompany\moxxdesignsdbconnection\entitys\Client.class
 com\mycompany\moxxdesignsdbconnection\services\ClientService.class
-PruebasCapaDatos\PruebaAgregarTrabajo.class

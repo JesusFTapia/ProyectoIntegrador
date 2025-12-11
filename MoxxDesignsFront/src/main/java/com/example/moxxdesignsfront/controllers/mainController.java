@@ -27,6 +27,7 @@ public class mainController implements Initializable {
     @FXML private Button trabajosButton;
     @FXML private Button cotizacionesButton;
     @FXML private Button clientesButton;
+    @FXML private Button reportesButton;
     private List<Button> menuButtons;
 
     @FXML
@@ -38,18 +39,23 @@ public class mainController implements Initializable {
     @FXML
     private ImageView ImageViewClientes;
 
+    @FXML
+    private ImageView ImageViewReportes;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuButtons = Arrays.asList(trabajosButton, cotizacionesButton, clientesButton);
+        menuButtons = Arrays.asList(trabajosButton, cotizacionesButton, clientesButton,reportesButton);
         Image svgImage1 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewTrabajo.setImage(svgImage1);
         Image svgImage2 = SVGLoader.loadSVG("/icons/calendar-fold.svg", 21, 21);
         ImageViewCotizaciones.setImage(svgImage2);
         Image svgImage3 = SVGLoader.loadSVG("/icons/notebook-pen.svg", 21, 21);
         ImageViewClientes.setImage(svgImage3);
-        handleButtonActivation(clientesButton);
+        Image svgImage4 = SVGLoader.loadSVG("/icons/notebook-pen.svg", 21, 21);
+        ImageViewReportes.setImage(svgImage4);
 
-        // Cargar directamente el menú de administrar trabajos
+
+        handleButtonActivation(trabajosButton);
         setView("/fxml/vistaTrabajos.fxml");
     }
 
@@ -98,6 +104,12 @@ public class mainController implements Initializable {
     public void handleClientesButton() {
         handleButtonActivation(clientesButton);
         setView("/fxml/vistaGestionClientes.fxml");
+    }
+
+    @FXML
+    public void handleReportesButton() {
+        handleButtonActivation(reportesButton);
+        setView("/fxml/vistaReportes.fxml");
     }
 
 

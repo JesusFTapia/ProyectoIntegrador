@@ -36,5 +36,6 @@ com\mycompany\moxxdesignsdbconnection\repository\IUserRepository.class
 com\mycompany\moxxdesignsdbconnection\repository\UserRepositoryImpl.class
 com\mycompany\moxxdesignsdbconnection\exceptions\IncompleteDataException.class
 PruebasCapaDatos\Inserts.class
+com\mycompany\moxxdesignsdbconnection\services\PdfReportService.class
 com\mycompany\moxxdesignsdbconnection\entitys\Client.class
 com\mycompany\moxxdesignsdbconnection\services\ClientService.class

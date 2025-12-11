@@ -17,7 +17,10 @@ import com.mycompany.moxxdesignsdbconnection.entitys.User;
 import com.mycompany.moxxdesignsdbconnection.entitys.Material;
 import com.mycompany.moxxdesignsdbconnection.entitys.Job;
 import com.mycompany.moxxdesignsdbconnection.entitys.JobType;
+import com.mycompany.moxxdesignsdbconnection.entitys.Quotation;
+import com.mycompany.moxxdesignsdbconnection.repository.IQuotationRepository;
 import com.mycompany.moxxdesignsdbconnection.repository.IUserRepository;
+import com.mycompany.moxxdesignsdbconnection.repository.QuotationRepositoryImpl;
 import com.mycompany.moxxdesignsdbconnection.repository.UserRepositoryImpl;
 import java.util.List;
 
@@ -30,6 +33,7 @@ public class QuotationService {
     private JobService jobService;
     private JobTypeService jobTypeService;
     private MaterialService materialService;
+    private IQuotationRepository quotationRepository;
     
     public QuotationService(){
         IClientRepository clientRepository=new ClientRepositoryImpl();
@@ -40,6 +44,21 @@ public class QuotationService {
         jobService=new JobService(jobRepository);
         jobTypeService =new JobTypeService(jobTypeRepository);
         materialService = new MaterialService(materialRepository);
+        this.quotationRepository = new QuotationRepositoryImpl();
+    }
+    
+    public List<Quotation> getAllQuotations() {
+        // Asegúrate de que tu repositorio tenga un método findAll() o similar
+        return quotationRepository.findAll(); 
+    }
+
+    public void save(Quotation quotation) throws Exception {
+        try {
+            // Asegúrate de que tu repositorio tenga un método save()
+            quotationRepository.save(quotation); 
+        } catch (Exception e) {
+            throw new Exception("Error al guardar la cotización: " + e.getMessage());
+        }
     }
     
     public User getUser1(){

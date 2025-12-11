@@ -33,6 +33,25 @@ public class ClientService {
         return clientRepository.save(client);
     }
     
+    public Client updateClient(Client client) throws Exception {
+        if (client.getId() == null || client.getId() == 0) {
+            throw new Exception("No se puede actualizar un cliente sin ID.");
+        }
+        Optional<Client> clienteEnBd = clientRepository.findById(client.getId());
+        
+        if (!clienteEnBd.isPresent()) {
+            throw new Exception("El cliente que intentas editar no existe (ID incorrecto).");
+        }
+        Optional<Client> existingPhoneOpt = clientRepository.findByPhoneNumber(client.getPhoneNumber());
+        if (existingPhoneOpt.isPresent()) {
+            Client existingPhone = existingPhoneOpt.get();
+            if (!existingPhone.getId().equals(client.getId())) {
+                throw new Exception("Este número de teléfono ya pertenece a otro cliente.");
+            }
+        }
+        return clientRepository.save(client);
+    }
+    
     public List<Client> getAllClients(){
         List<Client> clients = clientRepository.findAll();
         return clients;

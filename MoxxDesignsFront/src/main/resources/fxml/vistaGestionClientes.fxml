@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.moxxdesignsfront.controllers.vistaGestionTrabajos">
+            fx:controller="com.example.moxxdesignsfront.controllers.vistaGestionClientes">
 
     <children>
         <VBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -24,7 +24,7 @@
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
 
-            <Label text="Gestión Operativa de Trabajos" textFill="#2c3e50">
+            <Label text="Directorio de Clientes" textFill="#2c3e50">
                 <font>
                     <Font name="System Bold" size="24.0" />
                 </font>
@@ -32,43 +32,36 @@
 
             <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 5; -fx-padding: 10;">
                 <children>
-                    <Label text="🔍 Buscar:" textFill="#7f8c8d">
-                        <font>
-                            <Font name="System Bold" size="12.0" />
-                        </font>
+                    <Label text="🔍:" textFill="#7f8c8d">
+                        <font><Font name="System Bold" size="14.0" /></font>
                     </Label>
-
-                    <TextField fx:id="buscarTextField" promptText="Por ID, Cliente o Estado..."
-                               HBox.hgrow="ALWAYS" style="-fx-pref-width: 300;" />
+                    <TextField fx:id="buscarTextField" promptText="Buscar por Nombre, Apellido o Teléfono..." prefWidth="300.0" />
 
                     <Region HBox.hgrow="ALWAYS" />
 
+                    <Button mnemonicParsing="false" onAction="#nuevoCliente"
+                            text="👤 + Nuevo Cliente"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
+
                     <Button mnemonicParsing="false" onAction="#refrescarTabla"
-                            text="🔄 Actualizar Tabla"
+                            text="🔄"
                             style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
                 </children>
             </HBox>
 
-            <TableView fx:id="tablaTrabajos" VBox.vgrow="ALWAYS" style="-fx-border-color: #bdc3c7; -fx-border-radius: 5;">
+            <TableView fx:id="tablaClientes" VBox.vgrow="ALWAYS" style="-fx-border-color: #bdc3c7; -fx-border-radius: 5;">
                 <columns>
-                    <TableColumn fx:id="columnaId" prefWidth="60.0" text="ID" style="-fx-alignment: CENTER;" />
-                    <TableColumn fx:id="columnaCliente" prefWidth="150.0" text="Cliente" />
-                    <TableColumn fx:id="columnaTipo" prefWidth="200.0" text="Tipo / Vehículo" />
-                    <TableColumn fx:id="columnaEstado" prefWidth="100.0" text="Estado" style="-fx-alignment: CENTER;" />
-                    <TableColumn fx:id="columnaEntrega" prefWidth="100.0" text="F. Entrega" style="-fx-alignment: CENTER;" />
-                    <TableColumn fx:id="columnaAcciones" prefWidth="180.0" text="Acciones Operativas" style="-fx-alignment: CENTER;" />
+                    <TableColumn fx:id="colId" prefWidth="50.0" text="ID" style="-fx-alignment: CENTER;" />
+                    <TableColumn fx:id="colNombre" prefWidth="150.0" text="Nombre" />
+                    <TableColumn fx:id="colApellido" prefWidth="150.0" text="Apellido" />
+                    <TableColumn fx:id="colTelefono" prefWidth="120.0" text="Teléfono" style="-fx-alignment: CENTER;" />
+                    <TableColumn fx:id="colAcciones" prefWidth="100.0" text="Acciones" style="-fx-alignment: CENTER;" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>
             </TableView>
 
-            <HBox style="-fx-background-color: #fff3cd; -fx-padding: 10; -fx-background-radius: 5;">
-                <children>
-                    <Label text="ℹ NOTA: Este módulo solo permite cambiar estados y fechas. Para editar cotizaciones, vaya al módulo 'Cotizaciones'."
-                           textFill="#856404" />
-                </children>
-            </HBox>
         </VBox>
     </children>
 </AnchorPane>

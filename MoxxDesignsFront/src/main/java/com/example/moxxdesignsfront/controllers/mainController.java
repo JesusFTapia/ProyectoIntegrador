@@ -25,29 +25,29 @@ public class mainController implements Initializable {
     private VBox centerVBox;
 
     @FXML private Button trabajosButton;
-    @FXML private Button citaButton;
-    @FXML private Button consultarButton;
+    @FXML private Button cotizacionesButton;
+    @FXML private Button clientesButton;
     private List<Button> menuButtons;
 
     @FXML
     private ImageView ImageViewTrabajo;
 
     @FXML
-    private ImageView ImageViewCita;
+    private ImageView ImageViewCotizaciones;
 
     @FXML
-    private ImageView ImageViewConsultar;
+    private ImageView ImageViewClientes;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuButtons = Arrays.asList(trabajosButton, citaButton, consultarButton);
+        menuButtons = Arrays.asList(trabajosButton, cotizacionesButton, clientesButton);
         Image svgImage1 = SVGLoader.loadSVG("/icons/user.svg", 21, 21);
         ImageViewTrabajo.setImage(svgImage1);
         Image svgImage2 = SVGLoader.loadSVG("/icons/calendar-fold.svg", 21, 21);
-        ImageViewCita.setImage(svgImage2);
+        ImageViewCotizaciones.setImage(svgImage2);
         Image svgImage3 = SVGLoader.loadSVG("/icons/notebook-pen.svg", 21, 21);
-        ImageViewConsultar.setImage(svgImage3);
-        handleButtonActivation(trabajosButton);
+        ImageViewClientes.setImage(svgImage3);
+        handleButtonActivation(clientesButton);
 
         // Cargar directamente el menú de administrar trabajos
         setView("/fxml/vistaTrabajos.fxml");
@@ -89,15 +89,17 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    public void handleCitasButton() {
-        handleButtonActivation(citaButton);
-        setView("/fxml/vistaCitas.fxml");
+    public void handleCotizacionesButton() {
+        handleButtonActivation(cotizacionesButton);
+        setView("/fxml/vistaGestionCotizaciones.fxml");
     }
 
     @FXML
-    public void handleConsultarButton() {
-        setView("/fxml/consultar_view.fxml");
+    public void handleClientesButton() {
+        handleButtonActivation(clientesButton);
+        setView("/fxml/vistaGestionClientes.fxml");
     }
+
 
     // Método público para que otros controladores puedan cambiar la vista
     public void cargarVistaEnCenter(String fxmlPath) {

@@ -43,6 +43,12 @@ public class Inserts {
         clientService.registerNewClient(new Client("Javier", "Pérez", "8121115555"));
         clientService.registerNewClient(new Client("Sofía", "Martínez", "4497772222"));
         clientService.registerNewClient(new Client("Ricardo", "Sánchez", "9982228888"));
+
+        clientService.registerNewClient(new Client("Laura", "Castillo", "2223334444"));
+        clientService.registerNewClient(new Client("Pedro", "Vargas", "7776665555"));
+        clientService.registerNewClient(new Client("Elena", "Ruiz", "1112229999"));
+        clientService.registerNewClient(new Client("Guillermo", "Soto", "6565554444"));
+        clientService.registerNewClient(new Client("Andrea", "Flores", "4778889999"));
         
         
         IJobTypeRepository jobTypeRepository=new JobTypeRepositoryImpl();
@@ -63,6 +69,13 @@ public class Inserts {
         materialService.registerNewMaterial(new Material("Cable de Cobre", "Conductor eléctrico de alta eficiencia", 50, "m", 0.1f));
         materialService.registerNewMaterial(new Material("Arena Fina", "Agregado para mortero y revoques", 200, "ton", 1000.0f));
         materialService.registerNewMaterial(new Material("Placa de Yeso", "Panel para tabiquería seca", 30, "m²", 7.0f));
+
+        materialService.registerNewMaterial(new Material("Acero Inoxidable", "Lámina pulida de alta resistencia", 50, "kg", 8.0f));
+        materialService.registerNewMaterial(new Material("Tornillo Autorroscante", "Sujeción universal para madera y metal", 1000, "pza", 0.05f));
+        materialService.registerNewMaterial(new Material("Pintura Blanca Mate", "Pintura base para interiores", 10, "galón", 15.5f));
+        materialService.registerNewMaterial(new Material("Telas vinílicas", "Material resistente para anuncios exteriores", 200, "m²", 15.0f));
+        materialService.registerNewMaterial(new Material("Iluminación LED", "Luz blanca de alta eficiencia", 50, "unidad", 35.0f));
+
     }catch(Exception e){
            System.out.println("Inserts Fallidos" + e);
     }   
